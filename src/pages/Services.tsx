@@ -1,5 +1,10 @@
-const Services = () => {
-  return <div>Services Page</div>;
+const About = () => {
+  return (
+    <div className="p-10">
+      <h1 className="text-3xl font-bold">About Us</h1>
+      <p>We are a solar solutions company...Services</p>
+    </div>
+  );
 };
 
-export default Services;
+export default About;

@@ -8,7 +8,7 @@ const stats = [
   { value: "10+", label: "Expert Team" },
 ];
 
-const tags = ["Web Development", "Mobile Apps", "UI/UX Design", "Cloud Solutions", "AI Integration"];
+const tags = ["Web Development", "Mobile Apps", "Software Development", "Digital Marketing", "SEO", "Branding", "Advertising", "Content Delivering"];
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -65,36 +65,45 @@ const HeroSection = () => {
           color: var(--text);
         }
 
-        /* ── MESH BACKGROUND ── */
+        /* ── BACKGROUND IMAGE ── */
+        .hero-bg-image {
+          position: absolute;
+          inset: 0;
+          background-image: url('src/assets/marvin-meyer-SYTO3xs06fU-unsplash.jpg');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          pointer-events: none;
+        }
+
+        /* dark overlay to keep text legible and on-brand */
+        .hero-bg-overlay {
+          position: absolute;
+          inset: 0;
+          background:
+            linear-gradient(to bottom, rgba(6,12,26,0.82) 0%, rgba(6,12,26,0.70) 50%, rgba(6,12,26,0.92) 100%),
+            linear-gradient(to right,  rgba(6,12,26,0.5) 0%, transparent 60%);
+          pointer-events: none;
+        }
+
+        /* ── MESH (brand color tint on top of photo) ── */
         .hero-mesh {
           position: absolute;
           inset: 0;
           pointer-events: none;
           background:
-            radial-gradient(ellipse 70% 60% at 15% 20%, rgba(26,95,212,0.18) 0%, transparent 60%),
-            radial-gradient(ellipse 50% 50% at 85% 75%, rgba(240,120,32,0.14) 0%, transparent 55%),
-            radial-gradient(ellipse 40% 40% at 60% 10%, rgba(26,95,212,0.08) 0%, transparent 50%);
+            radial-gradient(ellipse 70% 60% at 15% 20%, rgba(26,95,212,0.22) 0%, transparent 60%),
+            radial-gradient(ellipse 50% 50% at 85% 75%, rgba(240,120,32,0.16) 0%, transparent 55%),
+            radial-gradient(ellipse 40% 40% at 60% 10%, rgba(26,95,212,0.10) 0%, transparent 50%);
         }
 
-        /* ── GRID ── */
-        .hero-grid-bg {
-          position: absolute;
-          inset: 0;
-          background-image:
-            linear-gradient(rgba(61,130,245,0.06) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(61,130,245,0.06) 1px, transparent 1px);
-          background-size: 56px 56px;
-          mask-image: radial-gradient(ellipse 90% 70% at 50% 45%, black 20%, transparent 100%);
-          pointer-events: none;
-        }
-
-        /* ── GLOWING ORBS (large, blurred) ── */
+        /* ── GLOWING ORBS ── */
         .glow-orb {
           position: absolute;
           border-radius: 50%;
           pointer-events: none;
           filter: blur(80px);
-          opacity: 0.45;
+          opacity: 0.35;
         }
         .glow-orb-blue {
           width: 600px; height: 600px;
@@ -112,7 +121,7 @@ const HeroSection = () => {
           width: 300px; height: 300px;
           top: 55%; right: 25%;
           background: radial-gradient(circle, var(--blue-bright) 0%, transparent 70%);
-          opacity: 0.2;
+          opacity: 0.15;
           filter: blur(60px);
           animation: orb-drift 15s ease-in-out infinite alternate;
         }
@@ -160,7 +169,7 @@ const HeroSection = () => {
             var(--orange) 70%,
             transparent 100%);
           top: 38%;
-          opacity: 0.12;
+          opacity: 0.10;
           pointer-events: none;
         }
 
@@ -195,7 +204,7 @@ const HeroSection = () => {
         .eyebrow-line {
           width: 40px; height: 2px;
           background: linear-gradient(90deg, var(--blue-bright), var(--orange));
-          border-radius: 2px;
+          border-radius: px;
           box-shadow: 0 0 8px var(--blue-glow);
         }
         .eyebrow-text {
@@ -208,7 +217,7 @@ const HeroSection = () => {
 
         .hero-headline {
           font-family: 'Cormorant Garamond', serif;
-          font-weight: 300;
+          font-weight: 1000;
           font-size: clamp(3rem, 7vw, 5.8rem);
           line-height: 1.05;
           letter-spacing: -0.01em;
@@ -223,7 +232,7 @@ const HeroSection = () => {
           filter: drop-shadow(0 0 20px var(--blue-glow));
         }
         .hero-headline .outline-text {
-          -webkit-text-stroke: 1px rgba(61, 130, 245, 0.4);
+          -webkit-text-stroke: 1px #f07820;
           color: transparent;
         }
 
@@ -231,7 +240,7 @@ const HeroSection = () => {
           font-size: 0.75rem;
           line-height: 1.9;
           letter-spacing: 0.05em;
-          color: var(--text-dim);
+          color: var(--text);
           max-width: 480px;
         }
 
@@ -288,7 +297,7 @@ const HeroSection = () => {
           content: '';
           position: absolute;
           inset: 0;
-          background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark, #1249aa) 100%);
+          background: linear-gradient(135deg, var(--blue) 0%, #1249aa 100%);
           opacity: 0;
           transition: opacity 0.3s;
         }
@@ -325,7 +334,6 @@ const HeroSection = () => {
           justify-content: center;
         }
 
-        /* Card glow ring */
         .hero-card-glow {
           position: absolute;
           inset: -30px;
@@ -354,7 +362,6 @@ const HeroSection = () => {
             inset 0 1px 0 rgba(61,130,245,0.15);
         }
 
-        /* Inner top border glow */
         .hero-card::before {
           content: '';
           position: absolute;
@@ -479,7 +486,7 @@ const HeroSection = () => {
           font-size: 0.55rem;
           letter-spacing: 0.24em;
           text-transform: uppercase;
-          color: var(--text-faint);
+          color: var(--text);
         }
         .scroll-line {
           width: 1px; height: 44px;
@@ -522,10 +529,14 @@ const HeroSection = () => {
       `}</style>
 
       <section className="hero-root" ref={containerRef}>
-        <div className="hero-mesh" />
-        <div className="hero-grid-bg" />
+        {/* ── BACKGROUND IMAGE + OVERLAY ── */}
+        <div className="hero-bg-image" />
+        <div className="hero-bg-overlay" />
 
-        {/* Large glow orbs */}
+        {/* ── BRAND COLOR MESH (on top of photo) ── */}
+        <div className="hero-mesh" />
+
+        {/* Glow orbs */}
         <div className="glow-orb glow-orb-blue" />
         <div className="glow-orb glow-orb-orange" />
         <div className="glow-orb glow-orb-blue2" />
@@ -536,12 +547,12 @@ const HeroSection = () => {
 
         {/* Mini particles */}
         {[
-          { top:"22%", left:"14%", size:3, dur:"6s", color:"#3d82f5", delay:"0s" },
-          { top:"58%", left:"7%",  size:2, dur:"8s", color:"#f07820", delay:"1.2s" },
-          { top:"38%", right:"10%",size:4, dur:"7s", color:"#3d82f5", delay:"2s" },
-          { top:"72%", right:"18%",size:2, dur:"9s", color:"#ff9340", delay:"0.5s" },
-          { top:"15%", right:"35%",size:2, dur:"11s",color:"#3d82f5", delay:"3s" },
-          { top:"80%", left:"30%", size:3, dur:"7.5s",color:"#f07820",delay:"1.8s" },
+          { top:"22%", left:"14%", size:3, dur:"6s",  color:"#3d82f5", delay:"0s" },
+          { top:"58%", left:"7%",  size:2, dur:"8s",  color:"#f07820", delay:"1.2s" },
+          { top:"38%", right:"10%",size:4, dur:"7s",  color:"#3d82f5", delay:"2s" },
+          { top:"72%", right:"18%",size:2, dur:"9s",  color:"#ff9340", delay:"0.5s" },
+          { top:"15%", right:"35%",size:2, dur:"11s", color:"#3d82f5", delay:"3s" },
+          { top:"80%", left:"30%", size:3, dur:"7.5s",color:"#f07820", delay:"1.8s" },
         ].map((p, i) => (
           <div key={i} className="particle" style={{
             top: p.top, left: (p as any).left, right: (p as any).right,
@@ -586,7 +597,7 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
-              From concept to deployment — we craft high-performance websites, mobile apps, and intelligent software solutions tailored to your vision. Beyond development, we drive growth through strategic digital marketing, SEO, branding, advertising, and content—delivering complete digital solutions with precision and purpose.
+              From concept to deployment — we craft high-performance websites, mobile apps, and software solutions tailored to your vision. Beyond development, we drive growth through strategic digital marketing, SEO, branding, advertising, and content—delivering complete digital solutions with precision and purpose.
             </motion.p>
 
             <motion.div

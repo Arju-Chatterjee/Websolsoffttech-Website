@@ -1,5 +1,12 @@
+import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+} from "framer-motion";
+
 
 const menuItems = [
   { label: "Home", num: "01" },
@@ -225,27 +232,31 @@ const Navbar = () => {
         }
       `}</style>
 
-      <motion.div className="cursor-follower" style={{ left: springX, top: springY }} />
+      <motion.div
+        className="cursor-follower"
+        style={{ left: springX, top: springY }}
+      />
 
       <nav className="nav-root" ref={navRef}>
         <div className="nav-bar">
-
           {/* Logo */}
-          <motion.a
-            className="nav-logo" href="#"
-            initial={{ opacity: 0, x: -24 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <Link to="/" className="nav-logo">
             <div className="logo-mark">
               <img
                 src="src/assets/Logo.png"
                 alt="Websolsoffttech Logo"
-                style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: "6px" }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  borderRadius: "6px",
+                }}
               />
             </div>
-            <span className="logo-text">Websol<span>soffttech</span></span>
-          </motion.a>
+            <span className="logo-text">
+              Websol<span>soffttech</span>
+            </span>
+          </Link>
 
           {/* Desktop Links */}
           <motion.div
@@ -255,15 +266,26 @@ const Navbar = () => {
             transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           >
             {menuItems.map((item, i) => (
-              <div
+              <Link
                 key={item.label}
+                to={
+                  item.label === "Home"
+                    ? "/"
+                    : item.label === "Services"
+                      ? "/services"
+                      : item.label === "Portfolio"
+                        ? "/portfolio"
+                        : item.label === "About"
+                          ? "/about"
+                          : "/contact"
+                }
                 className={`nav-link ${activeIndex === i ? "active" : ""}`}
                 onClick={() => setActiveIndex(i)}
               >
                 <span className="nav-link-num">{item.num}</span>
                 <span className="nav-link-label">{item.label}</span>
                 <span className="nav-link-bar" />
-              </div>
+              </Link>
             ))}
           </motion.div>
 
@@ -305,8 +327,15 @@ const Navbar = () => {
                 className="mobile-menu-item"
                 initial={{ opacity: 0, x: -40 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 + i * 0.07, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                onClick={() => { setActiveIndex(i); setIsOpen(false); }}
+                transition={{
+                  delay: 0.1 + i * 0.07,
+                  duration: 0.6,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                onClick={() => {
+                  setActiveIndex(i);
+                  setIsOpen(false);
+                }}
               >
                 <span className="mobile-num">{item.num}</span>
                 <span className="mobile-label nav-serif">{item.label}</span>
@@ -328,4 +357,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
- 

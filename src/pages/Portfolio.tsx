@@ -1,5 +1,10 @@
-const Portfolio = () => {
-  return <div>Portfolio Page</div>;
+const About = () => {
+  return (
+    <div className="p-10">
+      <h1 className="text-3xl font-bold">About Us</h1>
+      <p>We are a solar solutions company...Portfolio</p>
+    </div>
+  );
 };
 
-export default Portfolio;
+export default About;
