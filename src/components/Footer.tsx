@@ -1,20 +1,22 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { Mail, Phone, MapPin } from "lucide-react";
 
 const footerLinks = {
   Services: [
     "Web Development",
     "Mobile Apps",
-    "UI/UX Design",
-    "Cloud Solutions",
-    "AI Integration",
+    "Software Development",
+    "Digital Marketing",
+    "Video & Production",
+    "Graphic Designing ",
   ],
   Company: [
     "About Us",
     "Our Process",
-    "Portfolio",
-    "Careers",
-    "Blog",
+    // "Portfolio",
+    // "Careers",
+    // "Blog",
   ],
   Support: [
     "Contact Us",
@@ -29,9 +31,18 @@ const socials = [
   {
     label: "LI",
     name: "LinkedIn",
-    href: "#",
+    href: "https://www.linkedin.com/company/websolsoffttech",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        width="16"
+        height="16"
+      >
         <rect x="2" y="2" width="20" height="20" rx="4" />
         <line x1="8" y1="11" x2="8" y2="17" />
         <line x1="8" y1="7" x2="8" y2="8" />
@@ -39,22 +50,31 @@ const socials = [
       </svg>
     ),
   },
-  {
-    label: "TW",
-    name: "Twitter / X",
-    href: "#",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-      </svg>
-    ),
-  },
+  // {
+  //   label: "TW",
+  //   name: "Twitter / X",
+  //   href: "#",
+  //   icon: (
+  //     <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+  //       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  //     </svg>
+  //   ),
+  // },
   {
     label: "IG",
     name: "Instagram",
-    href: "#",
+    href: "https://www.instagram.com/websolsoffttech.in/",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        width="16"
+        height="16"
+      >
         <rect x="2" y="2" width="20" height="20" rx="5" />
         <circle cx="12" cy="12" r="4" />
         <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
@@ -68,6 +88,17 @@ const socials = [
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
         <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
+      </svg>
+    ),
+  },
+
+  {
+    label: "FB",
+    name: "Facebook",
+    href: "https://www.facebook.com/websolsoffttech",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+        <path d="M22 12.07C22 6.477 17.523 2 12 2S2 6.477 2 12.07c0 5.018 3.657 9.173 8.438 9.93v-7.02H7.898v-2.91h2.54V9.845c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.196 2.238.196v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.877h2.773l-.443 2.91h-2.33V22c4.781-.757 8.438-4.912 8.438-9.93z" />
       </svg>
     ),
   },
@@ -85,7 +116,15 @@ const Footer = () => {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
-    const particles: { x: number; y: number; vx: number; vy: number; size: number; alpha: number; color: string }[] = [];
+    const particles: {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      size: number;
+      alpha: number;
+      color: string;
+    }[] = [];
     for (let i = 0; i < 40; i++) {
       particles.push({
         x: Math.random() * canvas.width,
@@ -471,7 +510,6 @@ const Footer = () => {
 
         {/* ── MAIN BODY ── */}
         <div className="footer-body">
-
           {/* Brand */}
           <motion.div
             className="footer-brand"
@@ -481,36 +519,52 @@ const Footer = () => {
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
             <a className="footer-logo" href="#">
-              <img src="src/assets/Logo.png" alt="Websolsoffttech" className="footer-logo-img" />
-              <span className="footer-logo-text">Websol<span>soffttech</span></span>
+              <img
+                src="src/assets/Logo.png"
+                alt="Websolsoffttech"
+                className="footer-logo-img"
+              />
+              <span className="footer-logo-text">
+                Websol<span>soffttech</span>
+              </span>
             </a>
 
             <p className="footer-brand-desc">
-              Crafting high-performance digital products with precision engineering
-              and refined design. Your vision, our expertise.
+              Crafting high-performance digital products with precision
+              engineering and refined design. Your vision, our expertise.
             </p>
 
             <div className="footer-socials">
               {socials.map((s) => (
-                <a key={s.name} href={s.href} className="social-btn" title={s.name}>
+                <a
+                  key={s.name}
+                  href={s.href}
+                  className="social-btn"
+                  title={s.name}
+                >
                   {s.icon}
                 </a>
               ))}
             </div>
 
-            <div className="footer-contact">
-              <div className="contact-item">
-                <span className="contact-dot" />
-                hello@websolsoffttech.com
-              </div>
-              <div className="contact-item">
-                <span className="contact-dot" />
-                +91 98765 43210
-              </div>
-              <div className="contact-item">
-                <span className="contact-dot" />
-                Agartala, Tripura, India
-              </div>
+            <div className="contact-item flex items-center gap-2">
+              <Mail size={16} />
+              info.websolsoffttech@gmail.com
+            </div>
+
+            <div className="contact-item flex items-center gap-2">
+              <Phone size={16} />
+              +91 92337 70627
+            </div>
+
+            <div className="contact-item flex items-center gap-2">
+              <MapPin size={16} />
+              Agartala, Tripura, India
+            </div>
+
+            <div className="contact-item flex items-center gap-2">
+              <MapPin size={16} />
+              Udaipur, Tripura, India
             </div>
           </motion.div>
 
@@ -522,11 +576,17 @@ const Footer = () => {
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.18 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                duration: 0.8,
+                delay: 0.18 + i * 0.1,
+                ease: [0.16, 1, 0.3, 1],
+              }}
             >
               <div className="footer-col-title">{col}</div>
               {links.map((link) => (
-                <a key={link} href="#" className="footer-link">{link}</a>
+                <a key={link} href="#" className="footer-link">
+                  {link}
+                </a>
               ))}
             </motion.div>
           ))}
@@ -543,7 +603,9 @@ const Footer = () => {
           <p className="footer-copy">
             © 2025 <span>Websolsoffttech</span> — All rights reserved
           </p>
-          <p className="footer-tagline">Engineering the future, one product at a time.</p>
+          <p className="footer-tagline">
+            Engineering the future, one product at a time.
+          </p>
           <p className="footer-badge">Made with precision</p>
         </motion.div>
       </footer>

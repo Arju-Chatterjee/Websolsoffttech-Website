@@ -7,11 +7,12 @@ const reasons = [
     title: "End-to-End Ownership",
     body: "From strategy and design to development and launch — we own every phase. No handoffs, no gaps, no excuses.",
     icon: (
-      <svg viewBox="0 0 28 28" fill="none" width={28} height={28}>
-        <path d="M4 14h20M14 4l10 10-10 10" stroke="#3d82f5" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+      <svg viewBox="0 0 28 28" fill="none" width={32} height={32}>
+        <path d="M4 14h20M14 4l10 10-10 10" stroke="#3d82f5" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
     accent: "#3d82f5",
+    shadow: "rgba(61,130,245,0.45)",
     warm: false,
   },
   {
@@ -19,12 +20,13 @@ const reasons = [
     title: "Performance First",
     body: "Every decision — from architecture to animation — is made with speed, scalability, and real-world load in mind.",
     icon: (
-      <svg viewBox="0 0 28 28" fill="none" width={28} height={28}>
-        <circle cx="14" cy="14" r="10" stroke="#f07820" strokeWidth="1.4"/>
-        <path d="M14 8v6l4 2" stroke="#f07820" strokeWidth="1.4" strokeLinecap="round"/>
+      <svg viewBox="0 0 28 28" fill="none" width={32} height={32}>
+        <circle cx="14" cy="14" r="10" stroke="#f07820" strokeWidth="1.6"/>
+        <path d="M14 8v6l4 2" stroke="#f07820" strokeWidth="1.6" strokeLinecap="round"/>
       </svg>
     ),
     accent: "#f07820",
+    shadow: "rgba(240,120,32,0.45)",
     warm: true,
   },
   {
@@ -32,13 +34,14 @@ const reasons = [
     title: "Strategy-Led Thinking",
     body: "We don't just execute briefs. We challenge assumptions, identify opportunities, and build products that solve real problems.",
     icon: (
-      <svg viewBox="0 0 28 28" fill="none" width={28} height={28}>
-        <rect x="3" y="8" width="22" height="14" rx="1.5" stroke="#3d82f5" strokeWidth="1.4"/>
-        <path d="M9 8V6a5 5 0 0110 0v2" stroke="#3d82f5" strokeWidth="1.4" strokeLinecap="round"/>
+      <svg viewBox="0 0 28 28" fill="none" width={32} height={32}>
+        <rect x="3" y="8" width="22" height="14" rx="1.5" stroke="#3d82f5" strokeWidth="1.6"/>
+        <path d="M9 8V6a5 5 0 0110 0v2" stroke="#3d82f5" strokeWidth="1.6" strokeLinecap="round"/>
         <circle cx="14" cy="15" r="2" fill="#3d82f5" opacity=".6"/>
       </svg>
     ),
     accent: "#3d82f5",
+    shadow: "rgba(61,130,245,0.45)",
     warm: false,
   },
   {
@@ -46,13 +49,14 @@ const reasons = [
     title: "Transparent Process",
     body: "Weekly updates, open communication, and no black boxes. You always know where your project stands and why.",
     icon: (
-      <svg viewBox="0 0 28 28" fill="none" width={28} height={28}>
-        <path d="M5 7h18M5 14h12M5 21h8" stroke="#f07820" strokeWidth="1.4" strokeLinecap="round"/>
-        <circle cx="22" cy="20" r="4" stroke="#f07820" strokeWidth="1.4"/>
-        <path d="M22 18v2l1.5 1" stroke="#f07820" strokeWidth="1.2" strokeLinecap="round"/>
+      <svg viewBox="0 0 28 28" fill="none" width={32} height={32}>
+        <path d="M5 7h18M5 14h12M5 21h8" stroke="#f07820" strokeWidth="1.6" strokeLinecap="round"/>
+        <circle cx="22" cy="20" r="4" stroke="#f07820" strokeWidth="1.6"/>
+        <path d="M22 18v2l1.5 1" stroke="#f07820" strokeWidth="1.4" strokeLinecap="round"/>
       </svg>
     ),
     accent: "#f07820",
+    shadow: "rgba(240,120,32,0.45)",
     warm: true,
   },
   {
@@ -60,13 +64,14 @@ const reasons = [
     title: "Built to Scale",
     body: "Our solutions are architected to grow with you — whether you're onboarding 100 or 100,000 users.",
     icon: (
-      <svg viewBox="0 0 28 28" fill="none" width={28} height={28}>
-        <path d="M4 20l5-6 4 4 5-7 6 4" stroke="#3d82f5" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+      <svg viewBox="0 0 28 28" fill="none" width={32} height={32}>
+        <path d="M4 20l5-6 4 4 5-7 6 4" stroke="#3d82f5" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
         <circle cx="9" cy="14" r="1.5" fill="#3d82f5"/>
         <circle cx="18" cy="11" r="1.5" fill="#f07820"/>
       </svg>
     ),
     accent: "#3d82f5",
+    shadow: "rgba(61,130,245,0.45)",
     warm: false,
   },
   {
@@ -74,15 +79,36 @@ const reasons = [
     title: "Long-Term Partnership",
     body: "Launch is just the beginning. We stay involved — monitoring, optimizing, and evolving your product over time.",
     icon: (
-      <svg viewBox="0 0 28 28" fill="none" width={28} height={28}>
-        <path d="M14 4C8.48 4 4 8.48 4 14s4.48 10 10 10 10-4.48 10-10" stroke="#f07820" strokeWidth="1.4" strokeLinecap="round"/>
-        <path d="M19 4l5 5-5 5" stroke="#f07820" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+      <svg viewBox="0 0 28 28" fill="none" width={32} height={32}>
+        <path d="M14 4C8.48 4 4 8.48 4 14s4.48 10 10 10 10-4.48 10-10" stroke="#f07820" strokeWidth="1.6" strokeLinecap="round"/>
+        <path d="M19 4l5 5-5 5" stroke="#f07820" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
     accent: "#f07820",
+    shadow: "rgba(240,120,32,0.45)",
     warm: true,
   },
 ];
+
+interface Particle {
+  top: string;
+  left?: string;
+  right?: string;
+  size: number;
+  dur: string;
+  color: string;
+  delay: string;
+}
+
+const particles: Particle[] = [
+  { top: "18%", left: "12%",  size: 3, dur: "7s",   color: "#3d82f5", delay: "0s"   },
+  { top: "62%", left: "6%",   size: 2, dur: "9s",   color: "#f07820", delay: "1.4s" },
+  { top: "35%", right: "8%",  size: 4, dur: "6.5s", color: "#3d82f5", delay: "2.2s" },
+  { top: "75%", right: "20%", size: 2, dur: "8s",   color: "#ff9340", delay: "0.7s" },
+  { top: "12%", right: "38%", size: 2, dur: "10s",  color: "#3d82f5", delay: "3.1s" },
+];
+
+const WHATSAPP_URL = "https://wa.me/9233770627";
 
 const CardItem = ({ reason, index }: { reason: typeof reasons[0]; index: number }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -92,15 +118,39 @@ const CardItem = ({ reason, index }: { reason: typeof reasons[0]; index: number 
     <motion.div
       ref={ref}
       className={`wcu-card${reason.warm ? " wcu-card-warm" : ""}`}
-      initial={{ opacity: 0, y: 40 }}
+      style={{ "--card-accent": reason.accent, "--card-shadow": reason.shadow } as React.CSSProperties}
+      initial={{ opacity: 0, y: 50 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -6, transition: { duration: 0.3, ease: "easeOut" } }}
     >
-      <div className="wcu-card-num">{reason.num}</div>
-      <div className={`wcu-card-icon${reason.warm ? " warm" : ""}`}>{reason.icon}</div>
+      {/* Bold outer glow shadow layer */}
+      <div className="wcu-card-shadow" />
+
+      {/* Top accent border */}
+      <div className="wcu-card-top-border" />
+
+      {/* Corner decoration */}
+      <div className="wcu-card-corner" />
+
+      {/* Number badge */}
+      <div className="wcu-card-num-badge">{reason.num}</div>
+
+      {/* Icon block */}
+      <div className="wcu-card-icon-wrap">
+        <div className="wcu-card-icon-ring" />
+        <div className="wcu-card-icon">{reason.icon}</div>
+      </div>
+
+      {/* Text */}
       <div className="wcu-card-title">{reason.title}</div>
       <div className="wcu-card-body">{reason.body}</div>
-      <div className={`wcu-card-line${reason.warm ? " warm" : ""}`} />
+
+      {/* Bottom bar */}
+      <div className="wcu-card-footer">
+        <div className="wcu-card-footer-line" />
+        <div className="wcu-card-footer-dot" />
+      </div>
     </motion.div>
   );
 };
@@ -123,7 +173,6 @@ const WhyChooseUs = () => {
           overflow: hidden;
         }
 
-        /* ── TOP DIVIDER ── */
         .wcu-root::before {
           content: '';
           position: absolute; top: 0; left: 0; right: 0;
@@ -132,7 +181,6 @@ const WhyChooseUs = () => {
           box-shadow: 0 0 12px rgba(26,95,212,0.5), 0 0 24px rgba(240,120,32,0.3);
         }
 
-        /* ── BG ── */
         .wcu-bg {
           position: absolute; inset: 0; pointer-events: none;
           background:
@@ -174,7 +222,6 @@ const WhyChooseUs = () => {
           pointer-events: none;
         }
 
-        /* ── PARTICLES ── */
         .wcu-particle {
           position: absolute; border-radius: 50%; pointer-events: none;
           animation: wcu-float linear infinite;
@@ -185,7 +232,6 @@ const WhyChooseUs = () => {
           100% { transform: translateY(-70px) translateX(12px) scale(0.3); opacity: 0; }
         }
 
-        /* ── INNER ── */
         .wcu-inner {
           position: relative; z-index: 2;
           max-width: 1280px; margin: 0 auto;
@@ -247,37 +293,46 @@ const WhyChooseUs = () => {
         .wcu-cta {
           display: flex; align-items: center; gap: 1.2rem;
         }
+
+        /* WhatsApp button */
         .wcu-btn {
           position: relative;
-          padding: 12px 32px;
+          display: inline-flex; align-items: center; gap: 10px;
+          padding: 13px 32px;
           font-family: 'DM Mono', monospace;
           font-size: 0.66rem; letter-spacing: 0.2em;
           text-transform: uppercase; color: #fff;
-          background: linear-gradient(135deg, #f07820 0%, #e05a08 100%);
+          text-decoration: none;
+          background: linear-gradient(135deg, #25d366 0%, #1aab4f 100%);
           border: none; cursor: pointer;
           clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
-          box-shadow: 0 0 28px rgba(240,120,32,0.4), 0 4px 16px rgba(0,0,0,0.3);
+          box-shadow:
+            0 0 0 1px rgba(37,211,102,0.3),
+            0 0 28px rgba(37,211,102,0.35),
+            0 8px 32px rgba(0,0,0,0.4);
           transition: all 0.3s ease; overflow: hidden;
         }
         .wcu-btn::before {
           content: ''; position: absolute; inset: 0;
-          background: linear-gradient(135deg, #1a5fd4 0%, #1249aa 100%);
+          background: linear-gradient(135deg, #1aab4f 0%, #128c3e 100%);
           opacity: 0; transition: opacity 0.3s;
         }
         .wcu-btn:hover::before { opacity: 1; }
         .wcu-btn:hover {
-          box-shadow: 0 0 32px rgba(26,95,212,0.5), 0 4px 16px rgba(0,0,0,0.4);
+          box-shadow:
+            0 0 0 1px rgba(37,211,102,0.5),
+            0 0 40px rgba(37,211,102,0.5),
+            0 12px 40px rgba(0,0,0,0.5);
           transform: translateY(-2px);
         }
+        .wcu-btn svg { position: relative; z-index: 1; flex-shrink: 0; }
         .wcu-btn span { position: relative; z-index: 1; }
 
-        /* ── GRID ── */
+        /* ── CARDS GRID ── */
         .wcu-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 1px;
-          background: rgba(61,130,245,0.08);
-          border: 1px solid rgba(61,130,245,0.08);
+          gap: 24px;
         }
         @media (max-width: 900px) {
           .wcu-grid { grid-template-columns: repeat(2, 1fr); }
@@ -286,121 +341,179 @@ const WhyChooseUs = () => {
           .wcu-grid { grid-template-columns: 1fr; }
         }
 
-        /* ── CARD ── */
+        /* ── BOLD SHADOW CARD ── */
         .wcu-card {
           position: relative;
-          background: rgba(6,12,26,0.95);
-          padding: 2.4rem 2rem 2rem;
+          background: #0a1426;
+          border: 1px solid rgba(61,130,245,0.15);
+          padding: 2.2rem 2rem 1.8rem;
           overflow: hidden;
           cursor: default;
-          transition: background 0.3s;
+          transition: border-color 0.35s ease;
+          /* Bold dramatic shadow — the key effect */
+          box-shadow:
+            0 0 0 1px rgba(61,130,245,0.08),
+            0 4px 12px rgba(0,0,0,0.5),
+            0 12px 40px rgba(0,0,0,0.4),
+            0 24px 64px rgba(0,0,0,0.3),
+            /* colored bottom shadow */
+            0 32px 80px -16px rgba(61,130,245,0.25),
+            /* inner top highlight */
+            inset 0 1px 0 rgba(61,130,245,0.12);
         }
-        .wcu-card:hover { background: rgba(26,95,212,0.06); }
-        .wcu-card-warm:hover { background: rgba(240,120,32,0.05); }
+        .wcu-card:hover {
+          border-color: rgba(61,130,245,0.35);
+          box-shadow:
+            0 0 0 1px rgba(61,130,245,0.2),
+            0 4px 12px rgba(0,0,0,0.6),
+            0 16px 48px rgba(0,0,0,0.5),
+            0 32px 80px rgba(0,0,0,0.4),
+            0 40px 100px -16px rgba(61,130,245,0.45),
+            inset 0 1px 0 rgba(61,130,245,0.2);
+        }
+        .wcu-card-warm {
+          border-color: rgba(240,120,32,0.15);
+          box-shadow:
+            0 0 0 1px rgba(240,120,32,0.08),
+            0 4px 12px rgba(0,0,0,0.5),
+            0 12px 40px rgba(0,0,0,0.4),
+            0 24px 64px rgba(0,0,0,0.3),
+            0 32px 80px -16px rgba(240,120,32,0.22),
+            inset 0 1px 0 rgba(240,120,32,0.1);
+        }
+        .wcu-card-warm:hover {
+          border-color: rgba(240,120,32,0.38);
+          box-shadow:
+            0 0 0 1px rgba(240,120,32,0.22),
+            0 4px 12px rgba(0,0,0,0.6),
+            0 16px 48px rgba(0,0,0,0.5),
+            0 32px 80px rgba(0,0,0,0.4),
+            0 40px 100px -16px rgba(240,120,32,0.42),
+            inset 0 1px 0 rgba(240,120,32,0.18);
+        }
 
-        /* top accent line per card */
-        .wcu-card-line {
-          position: absolute; top: 0; left: 0; right: 0;
-          height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(61,130,245,0.35), transparent);
+        /* Glowing bottom shadow blob (pseudo) */
+        .wcu-card-shadow {
+          position: absolute;
+          bottom: -40px; left: 50%;
+          transform: translateX(-50%);
+          width: 80%; height: 80px;
+          background: radial-gradient(ellipse, var(--card-shadow, rgba(61,130,245,0.3)) 0%, transparent 70%);
+          filter: blur(20px);
+          opacity: 0.5;
+          pointer-events: none;
+          transition: opacity 0.4s ease;
+        }
+        .wcu-card:hover .wcu-card-shadow { opacity: 0.9; }
+
+        /* Top accent border */
+        .wcu-card-top-border {
+          position: absolute; top: 0; left: 0; right: 0; height: 2px;
+          background: linear-gradient(90deg, transparent 0%, var(--card-accent, #3d82f5) 50%, transparent 100%);
+          opacity: 0.6;
+          transition: opacity 0.35s;
+        }
+        .wcu-card:hover .wcu-card-top-border { opacity: 1; }
+
+        /* Corner bracket decoration */
+        .wcu-card-corner {
+          position: absolute; top: 12px; right: 12px;
+          width: 16px; height: 16px;
+          border-top: 1px solid var(--card-accent, #3d82f5);
+          border-right: 1px solid var(--card-accent, #3d82f5);
+          opacity: 0.3;
+          transition: opacity 0.35s, width 0.35s, height 0.35s;
+        }
+        .wcu-card:hover .wcu-card-corner {
+          opacity: 0.7; width: 22px; height: 22px;
+        }
+
+        /* Number badge */
+        .wcu-card-num-badge {
+          display: inline-flex; align-items: center; justify-content: center;
+          font-size: 0.5rem; letter-spacing: 0.2em;
+          color: var(--card-accent, #3d82f5);
+          border: 1px solid var(--card-accent, #3d82f5);
+          padding: 2px 8px;
+          margin-bottom: 1.4rem;
+          opacity: 0.6;
+          clip-path: polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%);
+          background: rgba(0,0,0,0.3);
           transition: opacity 0.3s;
         }
-        .wcu-card-line.warm {
-          background: linear-gradient(90deg, transparent, rgba(240,120,32,0.35), transparent);
-        }
-        .wcu-card:hover .wcu-card-line { opacity: 1; }
+        .wcu-card:hover .wcu-card-num-badge { opacity: 1; }
 
-        /* hover glow blob */
-        .wcu-card::after {
-          content: '';
-          position: absolute; bottom: -60px; right: -60px;
-          width: 160px; height: 160px; border-radius: 50%;
-          background: radial-gradient(circle, rgba(61,130,245,0.12) 0%, transparent 70%);
-          transition: opacity 0.4s;
-          opacity: 0; pointer-events: none;
-        }
-        .wcu-card:hover::after { opacity: 1; }
-        .wcu-card-warm::after {
-          background: radial-gradient(circle, rgba(240,120,32,0.10) 0%, transparent 70%);
-        }
-
-        .wcu-card-num {
-          font-size: 0.52rem; letter-spacing: 0.22em;
-          color: rgba(120,150,200,0.3);
-          margin-bottom: 1.2rem;
-          transition: color 0.3s;
-        }
-        .wcu-card:hover .wcu-card-num { color: rgba(61,130,245,0.5); }
-        .wcu-card-warm:hover .wcu-card-num { color: rgba(240,120,32,0.5); }
-
-        .wcu-card-icon {
-          width: 48px; height: 48px;
-          border: 1px solid rgba(61,130,245,0.18);
-          display: flex; align-items: center; justify-content: center;
+        /* Icon */
+        .wcu-card-icon-wrap {
+          position: relative;
+          width: 56px; height: 56px;
           margin-bottom: 1.4rem;
-          clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
-          background: rgba(26,95,212,0.06);
-          transition: border-color 0.3s, background 0.3s;
         }
-        .wcu-card-icon.warm {
-          border-color: rgba(240,120,32,0.18);
-          background: rgba(240,120,32,0.06);
+        .wcu-card-icon-ring {
+          position: absolute; inset: 0;
+          border: 1px solid var(--card-accent, #3d82f5);
+          opacity: 0.2;
+          clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+          background: rgba(0,0,0,0.4);
+          transition: opacity 0.3s, background 0.3s;
         }
-        .wcu-card:hover .wcu-card-icon { border-color: rgba(61,130,245,0.4); background: rgba(26,95,212,0.12); }
-        .wcu-card-warm:hover .wcu-card-icon { border-color: rgba(240,120,32,0.4); background: rgba(240,120,32,0.10); }
+        .wcu-card:hover .wcu-card-icon-ring {
+          opacity: 0.5;
+          background: color-mix(in srgb, var(--card-accent, #3d82f5) 10%, transparent);
+          box-shadow: 0 0 20px var(--card-shadow, rgba(61,130,245,0.3));
+        }
+        .wcu-card-icon {
+          position: absolute; inset: 0;
+          display: flex; align-items: center; justify-content: center;
+        }
 
+        /* Title */
         .wcu-card-title {
           font-family: 'Cormorant Garamond', serif;
-          font-weight: 400; font-size: 1.5rem;
-          color: #e8edf8; letter-spacing: 0.02em;
-          margin-bottom: 0.8rem; line-height: 1.2;
+          font-weight: 600;
+          font-size: 1.55rem;
+          line-height: 1.2;
+          color: #e8edf8;
+          letter-spacing: 0.01em;
+          margin-bottom: 0.75rem;
           transition: color 0.3s;
+          /* Bold text shadow for depth */
+          text-shadow:
+            0 2px 12px rgba(0,0,0,0.8),
+            0 0 40px var(--card-shadow, rgba(61,130,245,0.2));
         }
         .wcu-card:hover .wcu-card-title { color: #fff; }
 
+        /* Body */
         .wcu-card-body {
-          font-size: 0.64rem; line-height: 1.85;
-          letter-spacing: 0.04em; color: #4a6480;
+          font-size: 0.63rem; line-height: 1.9;
+          letter-spacing: 0.04em;
+          color: #4a6480;
           transition: color 0.3s;
         }
         .wcu-card:hover .wcu-card-body { color: #7a90b5; }
 
-        /* ── BOTTOM BAND ── */
-        .wcu-band {
-          margin-top: 4rem;
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 1px;
-          background: rgba(61,130,245,0.08);
-          border: 1px solid rgba(61,130,245,0.08);
+        /* Footer line */
+        .wcu-card-footer {
+          display: flex; align-items: center; gap: 8px;
+          margin-top: 1.6rem;
         }
-        @media (max-width: 768px) {
-          .wcu-band { grid-template-columns: repeat(2, 1fr); }
+        .wcu-card-footer-line {
+          flex: 1; height: 1px;
+          background: linear-gradient(90deg, var(--card-accent, #3d82f5), transparent);
+          opacity: 0.2;
+          transition: opacity 0.3s;
         }
-        .wcu-stat {
-          background: rgba(6,12,26,0.95);
-          padding: 1.8rem 1.6rem;
-          display: flex; flex-direction: column; gap: 6px;
-          transition: background 0.3s;
+        .wcu-card:hover .wcu-card-footer-line { opacity: 0.5; }
+        .wcu-card-footer-dot {
+          width: 4px; height: 4px; border-radius: 50%;
+          background: var(--card-accent, #3d82f5);
+          opacity: 0.4;
+          box-shadow: 0 0 6px var(--card-accent, #3d82f5);
+          transition: opacity 0.3s;
         }
-        .wcu-stat:hover { background: rgba(26,95,212,0.06); }
-        .wcu-stat-val {
-          font-family: 'Cormorant Garamond', serif;
-          font-weight: 300; font-size: 2.6rem;
-          line-height: 1;
-        }
-        .wcu-stat:nth-child(odd)  .wcu-stat-val { color: #3d82f5; text-shadow: 0 0 20px rgba(26,95,212,0.45); }
-        .wcu-stat:nth-child(even) .wcu-stat-val { color: #ff9340; text-shadow: 0 0 20px rgba(240,120,32,0.45); }
-        .wcu-stat-lbl {
-          font-size: 0.56rem; letter-spacing: 0.16em;
-          text-transform: uppercase; color: rgba(120,150,200,0.4);
-        }
-        .wcu-stat-sub {
-          font-size: 0.6rem; line-height: 1.7;
-          color: #3a5068; margin-top: 2px;
-        }
+        .wcu-card:hover .wcu-card-footer-dot { opacity: 1; }
 
-        /* ── SIDE LABEL ── */
         .wcu-side-label {
           position: absolute; left: 1.2rem; top: 50%;
           transform: translateY(-50%) rotate(-90deg);
@@ -419,18 +532,11 @@ const WhyChooseUs = () => {
         <div className="wcu-diag" />
         <div className="wcu-scan" />
 
-        {/* Particles */}
-        {[
-          { top:"18%", left:"12%",  size:3, dur:"7s",   color:"#3d82f5", delay:"0s"   },
-          { top:"62%", left:"6%",   size:2, dur:"9s",   color:"#f07820", delay:"1.4s" },
-          { top:"35%", right:"8%",  size:4, dur:"6.5s", color:"#3d82f5", delay:"2.2s" },
-          { top:"75%", right:"20%", size:2, dur:"8s",   color:"#ff9340", delay:"0.7s" },
-          { top:"12%", right:"38%", size:2, dur:"10s",  color:"#3d82f5", delay:"3.1s" },
-        ].map((p, i) => (
+        {particles.map((p, i) => (
           <div key={i} className="wcu-particle" style={{
             top: p.top,
-            left: (p as any).left,
-            right: (p as any).right,
+            left: p.left,
+            right: p.right,
             width: p.size, height: p.size,
             background: p.color,
             boxShadow: `0 0 ${p.size * 3}px ${p.color}`,
@@ -477,7 +583,17 @@ const WhyChooseUs = () => {
                 We don't just deliver projects — we build partnerships grounded in transparency, technical excellence, and a genuine investment in your success. Here's what sets us apart.
               </p>
               <div className="wcu-cta">
-                <button className="wcu-btn"><span>Start Your Project</span></button>
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="wcu-btn"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                  </svg>
+                  <span>Start Your Project With us</span>
+                </a>
               </div>
             </motion.div>
           </div>
@@ -489,28 +605,7 @@ const WhyChooseUs = () => {
             ))}
           </div>
 
-          {/* Stats band */}
-          <div className="wcu-band">
-            {[
-              { val: "10+",  lbl: "Projects Delivered",  sub: "Across startups & established brands" },
-              { val: "98%",  lbl: "Client Satisfaction",  sub: "Measured by repeat work & referrals" },
-              { val: "3+",   lbl: "Years of Expertise",   sub: "Building products that outlast trends" },
-              { val: "10+",  lbl: "Expert Team Members",  sub: "Designers, engineers & strategists" },
-            ].map((s, i) => (
-              <motion.div
-                key={s.lbl}
-                className="wcu-stat"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <span className="wcu-stat-val">{s.val}</span>
-                <span className="wcu-stat-lbl">{s.lbl}</span>
-                <span className="wcu-stat-sub">{s.sub}</span>
-              </motion.div>
-            ))}
-          </div>
+
 
         </div>
       </section>

@@ -5,9 +5,9 @@ const services = [
   {
     id: 1,
     num: "01",
-    title: "Web\nDevelopment",
-    sub: "High-performance sites & web apps engineered for speed, scale, and conversion.",
-    tags: ["React", "Next.js", "Node", "Laravel"],
+    title: "Website\nDevelopment",
+    sub: "High-performance websites and web applications optimized for speed, scalability, and conversions.",
+    tags: [],
     accent: "#3d82f5",
     glow: "rgba(26,95,212,0.45)",
     meshA: "rgba(26,95,212,0.18)",
@@ -17,8 +17,8 @@ const services = [
     id: 2,
     num: "02",
     title: "Mobile\nApps",
-    sub: "Native-quality iOS & Android experiences — smooth, intuitive, and built to retain.",
-    tags: ["React Native", "Flutter", "iOS", "Android"],
+    sub: "Robust iOS and Android applications designed for seamless performance and user engagement.",
+    tags: [],
     accent: "#f07820",
     glow: "rgba(240,120,32,0.45)",
     meshA: "rgba(240,120,32,0.16)",
@@ -28,8 +28,8 @@ const services = [
     id: 3,
     num: "03",
     title: "Software\nDevelopment",
-    sub: "Custom SaaS platforms, internal tools, and automation engineered for durability.",
-    tags: ["SaaS", "APIs", "Cloud", "DevOps"],
+    sub: "Custom software solutions, SaaS platforms, and automation systems tailored for business efficiency.",
+    tags: [],
     accent: "#3d82f5",
     glow: "rgba(26,95,212,0.45)",
     meshA: "rgba(26,95,212,0.18)",
@@ -38,9 +38,16 @@ const services = [
   {
     id: 4,
     num: "04",
-    title: "Digital\nMarketing & SEO",
-    sub: "Search rankings, paid campaigns, and analytics that generate real pipeline.",
-    tags: ["SEO", "Google Ads", "Analytics", "PPC"],
+    title: "Digital\nMarketing",
+    sub: "Data-driven SEO, paid advertising, and performance marketing strategies that generate measurable growth.",
+    tags: [
+      "SEO",
+      "Google Ads",
+      "Meta Ads",
+      "Performance Marketing",
+      "Social Media Management",
+      "Google My Business Setup",
+    ],
     accent: "#f07820",
     glow: "rgba(240,120,32,0.45)",
     meshA: "rgba(240,120,32,0.16)",
@@ -49,13 +56,86 @@ const services = [
   {
     id: 5,
     num: "05",
-    title: "Branding &\nContent",
-    sub: "Visual systems, copywriting, and ad creatives that build authority and trust.",
-    tags: ["Logo Design", "Brand Guide", "Content", "Ads"],
+    title: "Video &\nProduction",
+    sub: "Professional video production, editing, and storytelling to enhance brand visibility and engagement.",
+    tags: [],
     accent: "#3d82f5",
     glow: "rgba(26,95,212,0.45)",
     meshA: "rgba(26,95,212,0.18)",
     meshB: "rgba(240,120,32,0.10)",
+  },
+  {
+    id: 6,
+    num: "06",
+    title: "Graphic\nDesigning",
+    sub: "Creative graphic design solutions including branding, social media creatives, and marketing materials.",
+    tags: [],
+    accent: "#f07820",
+    glow: "rgba(240,120,32,0.45)",
+    meshA: "rgba(240,120,32,0.16)",
+    meshB: "rgba(26,95,212,0.10)",
+  },
+];
+
+// Fix 1: Properly typed particle interface — eliminates the `(p as any)` casts
+interface Particle {
+  top: string;
+  left?: string;
+  right?: string;
+  size: number;
+  dur: string;
+  color: string;
+  delay: string;
+}
+
+const particles: Particle[] = [
+  {
+    top: "22%",
+    left: "14%",
+    size: 3,
+    dur: "6s",
+    color: "#3d82f5",
+    delay: "0s",
+  },
+  {
+    top: "58%",
+    left: "7%",
+    size: 2,
+    dur: "8s",
+    color: "#f07820",
+    delay: "1.2s",
+  },
+  {
+    top: "38%",
+    right: "10%",
+    size: 4,
+    dur: "7s",
+    color: "#3d82f5",
+    delay: "2s",
+  },
+  {
+    top: "72%",
+    right: "18%",
+    size: 2,
+    dur: "9s",
+    color: "#ff9340",
+    delay: "0.5s",
+  },
+  {
+    top: "15%",
+    right: "35%",
+    size: 2,
+    dur: "11s",
+    color: "#3d82f5",
+    delay: "3s",
+  },
+  {
+    top: "80%",
+    left: "30%",
+    size: 3,
+    dur: "7.5s",
+    color: "#f07820",
+    delay: "1.8s",
   },
 ];
 
@@ -64,12 +144,22 @@ const TOTAL = services.length;
 const ServicesSection = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
-  const [direction, setDirection] = useState<1 | -1>(1);
+  // Fix 2: Store direction in a ref so exit animations always read the latest value,
+  // avoiding the stale-closure bug where the exiting element captured an old direction.
+  const directionRef = useRef<1 | -1>(1);
   const prevActive = useRef(0);
-  const stepRef = useRef(typeof window !== "undefined" ? window.innerHeight : 800);
+
+  // Fix 3: Initialise stepRef safely — avoids SSR crash from accessing `window` directly
+  // in the useRef initializer argument (runs synchronously on module load in some bundlers).
+  const stepRef = useRef(800);
+  useEffect(() => {
+    stepRef.current = window.innerHeight;
+  }, []);
 
   useEffect(() => {
-    const onResize = () => { stepRef.current = window.innerHeight; };
+    const onResize = () => {
+      stepRef.current = window.innerHeight;
+    };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
@@ -82,7 +172,9 @@ const ServicesSection = () => {
       const index = Math.round(scrolledInside / stepRef.current);
       const clamped = Math.max(0, Math.min(TOTAL - 1, index));
       if (clamped !== prevActive.current) {
-        setDirection(clamped > prevActive.current ? 1 : -1);
+        // Fix 2 (cont.): Update ref synchronously before state so the value is available
+        // immediately when Framer Motion reads it during the exit animation.
+        directionRef.current = clamped > prevActive.current ? 1 : -1;
         setActive(clamped);
         prevActive.current = clamped;
       }
@@ -290,10 +382,10 @@ const ServicesSection = () => {
         .sv-sep { font-size: 0.6rem; color: rgba(255,255,255,0.2); }
         .sv-tot { font-size: 0.65rem; color: rgba(255,255,255,0.28); letter-spacing: 0.12em; }
 
-        /* ── TOP DIVIDER LINE (full width) ── */
+        /* Fix 4: Removed conflicting width: 100% !important — the element is already
+           absolutely positioned with left: 0 and the sticky parent is full-width. */
         .sv-progress {
-          position: absolute; top: 0; left: 0;
-          width: 100% !important;
+          position: absolute; top: 0; left: 0; right: 0;
           height: 2px;
           background: linear-gradient(90deg, #3d82f5 0%, #f07820 50%, #3d82f5 100%);
           z-index: 30;
@@ -337,7 +429,6 @@ const ServicesSection = () => {
 
       <div className="sv-wrapper" ref={wrapperRef}>
         <div className="sv-sticky">
-
           {/* Progress bar */}
           <div className="sv-progress" />
 
@@ -347,7 +438,9 @@ const ServicesSection = () => {
               key={`mesh-${svc.id}`}
               className="sv-mesh"
               style={{
-                position: "absolute", inset: 0, pointerEvents: "none",
+                position: "absolute",
+                inset: 0,
+                pointerEvents: "none",
                 background: `radial-gradient(ellipse 70% 60% at 20% 30%, ${svc.meshA} 0%, transparent 60%),
                              radial-gradient(ellipse 50% 50% at 80% 70%, ${svc.meshB} 0%, transparent 55%)`,
               }}
@@ -360,11 +453,15 @@ const ServicesSection = () => {
           {/* Glow orbs */}
           <div
             className="sv-orb sv-orb-a"
-            style={{ background: `radial-gradient(circle, ${svc.accent} 0%, transparent 70%)` }}
+            style={{
+              background: `radial-gradient(circle, ${svc.accent} 0%, transparent 70%)`,
+            }}
           />
           <div
             className="sv-orb sv-orb-b"
-            style={{ background: `radial-gradient(circle, ${svc.accent} 0%, transparent 70%)` }}
+            style={{
+              background: `radial-gradient(circle, ${svc.accent} 0%, transparent 70%)`,
+            }}
           />
 
           {/* Diagonal lines */}
@@ -372,25 +469,23 @@ const ServicesSection = () => {
           <div className="sv-diag-2" />
           <div className="sv-scan" />
 
-          {/* Particles */}
-          {[
-            { top:"22%", left:"14%", size:3, dur:"6s",  color:"#3d82f5", delay:"0s" },
-            { top:"58%", left:"7%",  size:2, dur:"8s",  color:"#f07820", delay:"1.2s" },
-            { top:"38%", right:"10%",size:4, dur:"7s",  color:"#3d82f5", delay:"2s" },
-            { top:"72%", right:"18%",size:2, dur:"9s",  color:"#ff9340", delay:"0.5s" },
-            { top:"15%", right:"35%",size:2, dur:"11s", color:"#3d82f5", delay:"3s" },
-            { top:"80%", left:"30%", size:3, dur:"7.5s",color:"#f07820", delay:"1.8s" },
-          ].map((p, i) => (
-            <div key={i} className="sv-particle" style={{
-              top: p.top,
-              left: (p as any).left,
-              right: (p as any).right,
-              width: p.size, height: p.size,
-              background: p.color,
-              boxShadow: `0 0 ${p.size * 3}px ${p.color}`,
-              animationDuration: p.dur,
-              animationDelay: p.delay,
-            }} />
+          {/* Fix 1 (cont.): Use the properly typed particles array — no more `as any` casts */}
+          {particles.map((p, i) => (
+            <div
+              key={i}
+              className="sv-particle"
+              style={{
+                top: p.top,
+                left: p.left,
+                right: p.right,
+                width: p.size,
+                height: p.size,
+                background: p.color,
+                boxShadow: `0 0 ${p.size * 3}px ${p.color}`,
+                animationDuration: p.dur,
+                animationDelay: p.delay,
+              }}
+            />
           ))}
 
           <div className="sv-side-label">Websolsoffttech — Our Services</div>
@@ -400,7 +495,11 @@ const ServicesSection = () => {
             <AnimatePresence mode="wait">
               <motion.div
                 key={svc.id}
-                style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -411,7 +510,15 @@ const ServicesSection = () => {
                   className="sv-eyebrow"
                   style={{ color: svc.accent }}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.1, ease: [0.16,1,0.3,1] } }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.6,
+                      delay: 0.1,
+                      ease: [0.16, 1, 0.3, 1],
+                    },
+                  }}
                   exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
                 >
                   <span className="sv-eyebrow-line" />
@@ -419,11 +526,25 @@ const ServicesSection = () => {
                 </motion.div>
 
                 {/* BIG TITLE */}
+                {/* Fix 2 (cont.): Read from directionRef.current instead of a stale `direction`
+                    state variable so the exit Y offset is always correct. */}
                 <motion.h2
                   className="sv-big-title"
                   initial={{ opacity: 0, y: 60 }}
-                  animate={{ opacity: 1, y: 0, transition: { duration: 0.85, delay: 0.18, ease: [0.16,1,0.3,1] } }}
-                  exit={{ opacity: 0, y: direction > 0 ? -50 : 50, transition: { duration: 0.35 } }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.85,
+                      delay: 0.18,
+                      ease: [0.16, 1, 0.3, 1],
+                    },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: directionRef.current > 0 ? -50 : 50,
+                    transition: { duration: 0.35 },
+                  }}
                 >
                   {svc.title.split("\n").map((line, i) => (
                     <span key={i}>
@@ -447,7 +568,15 @@ const ServicesSection = () => {
                 <motion.p
                   className="sv-sub"
                   initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0, transition: { duration: 0.65, delay: 0.3, ease: [0.16,1,0.3,1] } }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.65,
+                      delay: 0.3,
+                      ease: [0.16, 1, 0.3, 1],
+                    },
+                  }}
                   exit={{ opacity: 0, transition: { duration: 0.2 } }}
                 >
                   {svc.sub}
@@ -457,11 +586,24 @@ const ServicesSection = () => {
                 <motion.div
                   className="sv-tags"
                   initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0, transition: { duration: 0.55, delay: 0.4, ease: [0.16,1,0.3,1] } }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.55,
+                      delay: 0.4,
+                      ease: [0.16, 1, 0.3, 1],
+                    },
+                  }}
                   exit={{ opacity: 0, transition: { duration: 0.15 } }}
                 >
                   {svc.tags.map((t, i) => (
-                    <span key={t} className={`sv-tag${i % 2 === 1 ? " warm" : ""}`}>{t}</span>
+                    <span
+                      key={t}
+                      className={`sv-tag${i % 2 === 1 ? " warm" : ""}`}
+                    >
+                      {t}
+                    </span>
                   ))}
                 </motion.div>
               </motion.div>
@@ -477,7 +619,10 @@ const ServicesSection = () => {
                 onClick={() => {
                   const wrapper = wrapperRef.current;
                   if (!wrapper) return;
-                  window.scrollTo({ top: wrapper.offsetTop + i * stepRef.current, behavior: "smooth" });
+                  window.scrollTo({
+                    top: wrapper.offsetTop + i * stepRef.current,
+                    behavior: "smooth",
+                  });
                 }}
               />
             ))}
@@ -508,7 +653,6 @@ const ServicesSection = () => {
               <div className="sv-scroll-line" />
             </div>
           )}
-
         </div>
       </div>
     </>
