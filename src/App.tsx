@@ -10,6 +10,8 @@ import Services from "./pages/Services";
 import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
 
+import ContactCTA from "./components/ContactCTA";
+
 function App() {
   return (
     <>
@@ -21,6 +23,8 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/contact" element={<Contact />} />
+
+        <Route path="/contact-cta" element={<ContactCTA />} />
       </Routes>
 
       <Footer />

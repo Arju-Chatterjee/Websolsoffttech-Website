@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const footerLinks = {
   Services: [
@@ -9,15 +10,9 @@ const footerLinks = {
     "Software Development",
     "Digital Marketing",
     "Video & Production",
-    "Graphic Designing ",
+    "Graphic Designing",
   ],
-  Company: [
-    "About Us",
-    "Our Process",
-    // "Portfolio",
-    // "Careers",
-    // "Blog",
-  ],
+  Company: ["About Us", "Our Process"],
   Support: [
     "Contact Us",
     "FAQ",
@@ -25,6 +20,16 @@ const footerLinks = {
     "Terms of Service",
     "Refund Policy",
   ],
+};
+
+// Maps each service name to its index in the PricingSection services array
+const serviceIndexMap: Record<string, number> = {
+  "Web Development": 0,
+  "Mobile Apps": 1,
+  "Software Development": 2,
+  "Digital Marketing": 3,
+  "Video & Production": 4,
+  "Graphic Designing": 5,
 };
 
 const socials = [
@@ -50,16 +55,6 @@ const socials = [
       </svg>
     ),
   },
-  // {
-  //   label: "TW",
-  //   name: "Twitter / X",
-  //   href: "#",
-  //   icon: (
-  //     <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-  //       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  //     </svg>
-  //   ),
-  // },
   {
     label: "IG",
     name: "Instagram",
@@ -91,7 +86,6 @@ const socials = [
       </svg>
     ),
   },
-
   {
     label: "FB",
     name: "Facebook",
@@ -106,6 +100,8 @@ const socials = [
 
 const Footer = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -125,6 +121,7 @@ const Footer = () => {
       alpha: number;
       color: string;
     }[] = [];
+
     for (let i = 0; i < 40; i++) {
       particles.push({
         x: Math.random() * canvas.width,
@@ -147,13 +144,11 @@ const Footer = () => {
         if (p.x > canvas.width) p.x = 0;
         if (p.y < 0) p.y = canvas.height;
         if (p.y > canvas.height) p.y = 0;
-
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
         ctx.fill();
       });
-
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -175,6 +170,17 @@ const Footer = () => {
     return () => cancelAnimationFrame(animId);
   }, []);
 
+  // Scrolls to #pricing and fires a custom event so PricingSection switches to the right service
+  const handleServiceClick = (e: React.MouseEvent, index: number) => {
+    e.preventDefault();
+
+    // save selected service
+    sessionStorage.setItem("selectedServiceIndex", index.toString());
+
+    // open service page
+    navigate("/");
+  };
+
   return (
     <>
       <style>{`
@@ -193,6 +199,8 @@ const Footer = () => {
           --text-faint:        #a8bcd8;
           --border:            rgba(26, 95, 212, 0.12);
           --border-warm:       rgba(240, 120, 32, 0.18);
+          --content-max:       1200px;
+          --content-pad:       2.5rem;
 
           font-family: 'DM Mono', monospace;
           background: #ffffff;
@@ -200,7 +208,7 @@ const Footer = () => {
           overflow: hidden;
         }
 
-        /* ── TOP ACCENT LINE (mirrors navbar top bar) ── */
+        /* ── TOP ACCENT LINE ── */
         .footer-top-divider {
           width: 100%;
           height: 3px;
@@ -217,28 +225,61 @@ const Footer = () => {
           opacity: 0.5;
         }
 
+        /* ── SHARED INNER CONTAINER ── */
+        .footer-inner {
+          max-width: var(--content-max);
+          margin: 0 auto;
+          padding-left: var(--content-pad);
+          padding-right: var(--content-pad);
+          display: grid;
+          grid-template-columns: 1.4fr repeat(3, 1fr);
+          gap: 3rem;
+          align-items: center;
+        }
+
+        @media (max-width: 767px) {
+          .footer-inner {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+          }
+        }
+
         /* ── CTA BANNER ── */
         .footer-cta-banner {
           position: relative;
           z-index: 10;
           border-bottom: 1px solid var(--border);
-          padding: 4rem 2.5rem;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-align: center;
-          gap: 2rem;
-          background: linear-gradient(160deg, var(--brand-blue-light) 0%, var(--brand-orange-light) 100%);
-        }
-        @media (min-width: 768px) {
-          .footer-cta-banner {
-            flex-direction: row;
-            justify-content: space-between;
-            text-align: left;
-          }
+          background: linear-gradient(
+            160deg,
+            var(--brand-blue-light) 0%,
+            var(--brand-orange-light) 100%
+          );
+          padding-top: 3.5rem;
+          padding-bottom: 3.5rem;
         }
 
-        .cta-banner-left { display: flex; flex-direction: column; gap: 0.6rem; }
+        .footer-cta-banner .footer-inner {
+          align-items: center;
+        }
+
+        .cta-banner-left {
+          grid-column: 1 / 4;
+          display: flex;
+          flex-direction: column;
+          gap: 0.6rem;
+        }
+
+        .cta-banner-btn-wrap {
+          grid-column: 4 / 5;
+          display: flex;
+          justify-content: flex-start;
+        }
+
+        @media (max-width: 767px) {
+          .cta-banner-left    { grid-column: 1 / -1; text-align: center; }
+          .cta-banner-btn-wrap { grid-column: 1 / -1; justify-content: center; }
+        }
+
         .cta-banner-eyebrow {
           font-size: 0.58rem;
           letter-spacing: 0.22em;
@@ -252,15 +293,20 @@ const Footer = () => {
           font-size: clamp(1.8rem, 3.5vw, 2.8rem);
           color: var(--text-dark);
           line-height: 1.1;
+          margin: 0;
         }
         .cta-banner-title em {
           font-style: italic;
           color: var(--brand-blue);
         }
 
-        /* CTA button — same as navbar .cta-btn */
+        /* WhatsApp CTA link wrapper — removes default anchor styling */
+        .cta-whatsapp-link {
+          text-decoration: none;
+          display: inline-block;
+        }
+
         .cta-banner-btn {
-          position: relative;
           padding: 13px 36px;
           font-family: 'DM Mono', monospace;
           font-size: 0.65rem;
@@ -274,7 +320,7 @@ const Footer = () => {
           box-shadow: 0 4px 14px rgba(240, 120, 32, 0.35);
           transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
           white-space: nowrap;
-          flex-shrink: 0;
+          position: relative;
           overflow: hidden;
         }
         .cta-banner-btn:hover {
@@ -282,22 +328,42 @@ const Footer = () => {
           box-shadow: 0 4px 18px rgba(26, 95, 212, 0.4);
           transform: translateY(-2px);
         }
+        .cta-banner-btn::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -120%;
+          width: 60%;
+          height: 100%;
+          background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(255,255,255,0.45),
+            transparent
+          );
+          transform: skewX(-20deg);
+          transition: left 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .cta-banner-btn:hover::after {
+          left: 120%;
+        }
 
         /* ── MAIN FOOTER BODY ── */
-        .footer-body {
+        .footer-body-wrap {
           position: relative;
           z-index: 10;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 5rem 2.5rem 3rem;
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 3rem;
         }
-        @media (min-width: 768px) {
-          .footer-body {
-            grid-template-columns: 1.4fr repeat(3, 1fr);
-            gap: 3rem;
+
+        .footer-body-wrap .footer-inner {
+          align-items: start;
+          padding-top: 5rem;
+          padding-bottom: 3rem;
+        }
+
+        @media (max-width: 767px) {
+          .footer-body-wrap .footer-inner {
+            padding-top: 3rem;
+            padding-bottom: 2rem;
           }
         }
 
@@ -333,7 +399,6 @@ const Footer = () => {
           max-width: 260px;
         }
 
-        /* Socials */
         .footer-socials {
           display: flex;
           gap: 0.7rem;
@@ -357,13 +422,6 @@ const Footer = () => {
           box-shadow: 0 0 12px rgba(240, 120, 32, 0.15);
         }
 
-        /* Contact blurb */
-        .footer-contact {
-          margin-top: 0.4rem;
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-        }
         .contact-item {
           font-size: 0.6rem;
           letter-spacing: 0.1em;
@@ -375,13 +433,6 @@ const Footer = () => {
           cursor: default;
         }
         .contact-item:hover { color: var(--text-dark); }
-        .contact-dot {
-          width: 4px; height: 4px;
-          background: var(--brand-orange);
-          border-radius: 50%;
-          flex-shrink: 0;
-          opacity: 0.7;
-        }
 
         /* Link columns */
         .footer-col { display: flex; flex-direction: column; gap: 1rem; }
@@ -410,7 +461,7 @@ const Footer = () => {
           color: var(--text-muted);
           text-decoration: none;
           cursor: pointer;
-          transition: color 0.3s, letter-spacing 0.3s;
+          transition: color 0.3s;
           display: flex;
           align-items: center;
           gap: 0;
@@ -424,26 +475,21 @@ const Footer = () => {
           transition: width 0.3s cubic-bezier(0.16,1,0.3,1), margin-right 0.3s;
           margin-right: 0;
         }
-        .footer-link:hover {
-          color: var(--text-dark);
-        }
-        .footer-link:hover::before {
-          width: 12px;
-          margin-right: 8px;
-        }
+        .footer-link:hover { color: var(--text-dark); }
+        .footer-link:hover::before { width: 12px; margin-right: 8px; }
 
         /* ── BOTTOM BAR ── */
         .footer-bottom {
           position: relative;
           z-index: 10;
           border-top: 1px solid var(--border);
-          padding: 1.5rem 2.5rem;
+          background: rgba(232, 240, 252, 0.4);
+          padding: 1.5rem var(--content-pad);
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 0.8rem;
           text-align: center;
-          background: rgba(232, 240, 252, 0.4);
         }
         @media (min-width: 768px) {
           .footer-bottom {
@@ -499,97 +545,129 @@ const Footer = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="cta-banner-left">
-            <span className="cta-banner-eyebrow">Let's Work Together</span>
-            <h3 className="cta-banner-title">
-              Ready to build something <em>extraordinary?</em>
-            </h3>
+          <div className="footer-inner">
+            <div className="cta-banner-left">
+              <span className="cta-banner-eyebrow">Let's Work Together</span>
+              <h3 className="cta-banner-title">
+                Ready to build something <em>extraordinary?</em>
+              </h3>
+            </div>
+            <div className="cta-banner-btn-wrap">
+              {/* WhatsApp link — opens WhatsApp chat with your number */}
+              <a
+                className="cta-whatsapp-link"
+                href="https://wa.me/919233770627"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="cta-banner-btn">Start a Conversation</button>
+              </a>
+            </div>
           </div>
-          <button className="cta-banner-btn">Start a Conversation</button>
         </motion.div>
 
         {/* ── MAIN BODY ── */}
-        <div className="footer-body">
-          {/* Brand */}
-          <motion.div
-            className="footer-brand"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <a className="footer-logo" href="#">
-              <img
-                src="src/assets/Logo.png"
-                alt="Websolsoffttech"
-                className="footer-logo-img"
-              />
-              <span className="footer-logo-text">
-                Websol<span>soffttech</span>
-              </span>
-            </a>
-
-            <p className="footer-brand-desc">
-              Crafting high-performance digital products with precision
-              engineering and refined design. Your vision, our expertise.
-            </p>
-
-            <div className="footer-socials">
-              {socials.map((s) => (
-                <a
-                  key={s.name}
-                  href={s.href}
-                  className="social-btn"
-                  title={s.name}
-                >
-                  {s.icon}
-                </a>
-              ))}
-            </div>
-
-            <div className="contact-item flex items-center gap-2">
-              <Mail size={16} />
-              info.websolsoffttech@gmail.com
-            </div>
-
-            <div className="contact-item flex items-center gap-2">
-              <Phone size={16} />
-              +91 92337 70627
-            </div>
-
-            <div className="contact-item flex items-center gap-2">
-              <MapPin size={16} />
-              Agartala, Tripura, India
-            </div>
-
-            <div className="contact-item flex items-center gap-2">
-              <MapPin size={16} />
-              Udaipur, Tripura, India
-            </div>
-          </motion.div>
-
-          {/* Link columns */}
-          {Object.entries(footerLinks).map(([col, links], i) => (
+        <div className="footer-body-wrap">
+          <div className="footer-inner">
+            {/* Brand */}
             <motion.div
-              key={col}
-              className="footer-col"
+              className="footer-brand"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{
                 duration: 0.8,
-                delay: 0.18 + i * 0.1,
+                delay: 0.1,
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              <div className="footer-col-title">{col}</div>
-              {links.map((link) => (
-                <a key={link} href="#" className="footer-link">
-                  {link}
-                </a>
-              ))}
+              <a className="footer-logo" href="#">
+                <img
+                  src="src/assets/Logo.png"
+                  alt="Websolsoffttech"
+                  className="footer-logo-img"
+                />
+                <span className="footer-logo-text">
+                  Websol<span>soffttech</span>
+                </span>
+              </a>
+
+              <p className="footer-brand-desc">
+                We build and deliver high-performance digital
+                solutions—combining precision engineering with modern design to
+                bring your vision to life.
+              </p>
+
+              <div className="footer-socials">
+                {socials.map((s) => (
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    className="social-btn"
+                    title={s.name}
+                  >
+                    {s.icon}
+                  </a>
+                ))}
+              </div>
+
+              <div className="contact-item">
+                <Mail size={14} />
+                info.websolsoffttech@gmail.com
+              </div>
+              <div className="contact-item">
+                <Phone size={14} />
+                +91 92337 70627
+              </div>
+              <div className="contact-item">
+                <MapPin size={14} />
+                Agartala, Tripura, India
+              </div>
+              <div className="contact-item">
+                <MapPin size={14} />
+                Udaipur, Tripura, India
+              </div>
             </motion.div>
-          ))}
+
+            {/* Link columns */}
+            {Object.entries(footerLinks).map(([col, links], i) => (
+              <motion.div
+                key={col}
+                className="footer-col"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.18 + i * 0.1,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+              >
+                <div className="footer-col-title">{col}</div>
+                {links.map((link) => {
+                  const serviceIdx = serviceIndexMap[link.trim()];
+                  const isService = serviceIdx !== undefined;
+
+                  return isService ? (
+                    // Service links — scroll to #pricing and switch to the matching card
+                    <a
+                      key={link}
+                      href="/"
+                      className="footer-link"
+                      onClick={(e) => handleServiceClick(e, serviceIdx)}
+                    >
+                      {link}
+                    </a>
+                  ) : (
+                    // All other links (Company, Support) — plain anchor
+                    <a key={link} href="#" className="footer-link">
+                      {link}
+                    </a>
+                  );
+                })}
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* ── BOTTOM BAR ── */}
@@ -601,7 +679,7 @@ const Footer = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
         >
           <p className="footer-copy">
-            © 2025 <span>Websolsoffttech</span> — All rights reserved
+            © 2026 <span>Websolsoffttech</span> — All rights reserved
           </p>
           <p className="footer-tagline">
             Engineering the future, one product at a time.
