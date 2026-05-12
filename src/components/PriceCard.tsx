@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const services = [
   {
-    title: "Website Development",
+   title: "Web Development",
     titleHtml: <>Websites <em>Development</em></>,
     subtitle: "No hidden fees. No surprises. Choose a web plan that fits your goals and scale as your business grows.",
     plans: [
@@ -112,7 +112,7 @@ const services = [
     ],
   },
   {
-    title: "Software Solutions",
+    title: "Software Development",
     titleHtml: <>Software <em>Solutions</em></>,
     subtitle: "Custom software built to your exact workflow. Scalable, secure and built to last.",
     plans: [

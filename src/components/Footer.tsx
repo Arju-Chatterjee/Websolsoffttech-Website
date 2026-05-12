@@ -177,8 +177,27 @@ const Footer = () => {
     // save selected service
     sessionStorage.setItem("selectedServiceIndex", index.toString());
 
-    // open service page
-    navigate("/");
+    // if already on services page
+    if (window.location.pathname === "/services") {
+      window.dispatchEvent(
+        new CustomEvent("selectPricingService", {
+          detail: { index },
+        }),
+      );
+
+      const pricingEl = document.getElementById("pricing");
+
+      if (pricingEl) {
+        pricingEl.scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+
+      return;
+    }
+
+    // otherwise navigate normally
+    navigate("/services");
   };
 
   return (
@@ -652,7 +671,7 @@ const Footer = () => {
                     // Service links — scroll to #pricing and switch to the matching card
                     <a
                       key={link}
-                      href="/"
+                      href="/services"
                       className="footer-link"
                       onClick={(e) => handleServiceClick(e, serviceIdx)}
                     >
@@ -660,7 +679,21 @@ const Footer = () => {
                     </a>
                   ) : (
                     // All other links (Company, Support) — plain anchor
-                    <a key={link} href="#" className="footer-link">
+                    <a
+                      key={link}
+                      href={
+                        link === "About Us"
+                          ? "/about"
+                          : link === "Our Process"
+                            ? "/our-process"
+                            : link === "Contact Us"
+                              ? "/contact"
+                              : link === "FAQ"
+                                ? "/faq"
+                                : "#"
+                      }
+                      className="footer-link"
+                    >
                       {link}
                     </a>
                   );
