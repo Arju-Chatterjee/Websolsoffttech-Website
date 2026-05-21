@@ -1,107 +1,56 @@
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
-const categories = ["All", "Website", "Mobile App", "Marketing", "Branding", "Video"];
+import fitBirdImg from "../assets/Portfolio/Marketing/FitBird.jpeg";
+import naturalsSalonImg from "../assets/Portfolio/Marketing/Naturals Salon.jpeg";
+import soubhagyaImg from "../assets/Portfolio/Marketing/Soubhagya.jpeg";
+
+const categories = [
+  "All",
+  "Website",
+  "Mobile App",
+  "Marketing",
+  "Branding",
+  "Video",
+];
 
 const projects = [
   {
     id: 1,
-    title: "NeoCommerce",
-    category: "Website",
-    sub: "Full-stack e-commerce platform with real-time inventory and custom checkout flow.",
-    tags: ["Next.js", "Tailwind", "Stripe"],
+    title: "Handloom & Handicrafts Souvenir Store 'FitBird'",
+    category: "Marketing",
+    sub: "Complete digital marketing solutions including ad creatives, paid campaigns, and social media growth strategies.",
+    tags: ["Ads Video", "Google Ads", "Meta Ads", "Social Media Management"],
     accent: "blue" as const,
-    year: "2025",
-    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-    result: "3× conversion rate",
+    year: "2026",
+    img: fitBirdImg,
+    result: "Strong Brand Growth",
+    link: "https://share.google/3soTm5opPDPcNOWnt",
   },
   {
     id: 2,
-    title: "Zenith Fitness",
-    category: "Mobile App",
-    sub: "Cross-platform fitness tracking app with AI-powered workout recommendations.",
-    tags: ["React Native", "Node.js", "AI"],
+    title: "The Naturals Salon & Spa",
+    category: "Marketing",
+    sub: "Performance-focused marketing campaigns with engaging ad videos, paid advertising, and consistent social media management.",
+    tags: ["Ads Video", "Google Ads", "Meta Ads", "Social Media Management"],
     accent: "amber" as const,
-    year: "2025",
-    img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80",
-    result: "50k+ downloads",
+    year: "2026",
+    img: naturalsSalonImg,
+    result: "Increased Customer Engagement",
+    link: "https://share.google/F8pnFF6rCahjc6p8X",
   },
   {
     id: 3,
-    title: "GreenLeaf Organics",
+    title: "Soubhagya Banquet Hall",
     category: "Marketing",
-    sub: "End-to-end digital marketing campaign driving organic reach and paid conversions.",
-    tags: ["SEO", "Meta Ads", "Google Ads"],
+    sub: "Creative digital campaigns with social media management, ad video production, and targeted advertising solutions.",
+    tags: ["Ads Video", "Google Ads", "Meta Ads", "Social Media Management"],
     accent: "blue" as const,
-    year: "2025",
-    img: "https://images.unsplash.com/photo-1533750516457-a7f992034fec?w=800&q=80",
-    result: "280% ROAS",
-  },
-  {
-    id: 4,
-    title: "Luminary Studio",
-    category: "Branding",
-    sub: "Complete brand identity system — logo, palette, typography, and brand guidelines.",
-    tags: ["Logo", "Brand Kit", "Print"],
-    accent: "amber" as const,
-    year: "2025",
-    img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80",
-    result: "Full rebrand",
-  },
-  {
-    id: 5,
-    title: "Apex Realty",
-    category: "Website",
-    sub: "Property listing platform with interactive maps, virtual tours, and lead capture.",
-    tags: ["React", "Maps API", "CRM"],
-    accent: "blue" as const,
-    year: "2025",
-    img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
-    result: "40% more leads",
-  },
-  {
-    id: 6,
-    title: "PulseMedia",
-    category: "Video",
-    sub: "Brand story video series and social media reels for product launch campaign.",
-    tags: ["Production", "Editing", "Reels"],
-    accent: "amber" as const,
-    year: "2025",
-    img: "https://images.unsplash.com/photo-1536240478700-b869ad10e2b4?w=800&q=80",
-    result: "2M+ views",
-  },
-  {
-    id: 7,
-    title: "SwiftDeliver",
-    category: "Mobile App",
-    sub: "Last-mile delivery management app with live driver tracking and route optimization.",
-    tags: ["Flutter", "Firebase", "Maps"],
-    accent: "blue" as const,
-    year: "2025",
-    img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80",
-    result: "30% faster delivery",
-  },
-  {
-    id: 8,
-    title: "Solaris Solar",
-    category: "Marketing",
-    sub: "Lead generation funnel with landing pages, Google Ads, and CRM automation.",
-    tags: ["Google Ads", "Landing Page", "CRM"],
-    accent: "amber" as const,
-    year: "2025",
-    img: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=80",
-    result: "5× lead volume",
-  },
-  {
-    id: 9,
-    title: "Arcana Jewelry",
-    category: "Branding",
-    sub: "Luxury brand identity with editorial photography direction and packaging design.",
-    tags: ["Logo", "Packaging", "Photography"],
-    accent: "blue" as const,
-    year: "2025",
-    img: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=80",
-    result: "Luxury relaunch",
+    year: "2026",
+    img: soubhagyaImg,
+    result: "Higher Online Reach",
+    link: "https://share.google/24Df6refA60UQYFmk",
   },
 ];
 
@@ -132,9 +81,14 @@ export default function PortfolioSection() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [hovered, setHovered] = useState<number | null>(null);
 
-  const filtered = activeFilter === "All"
-    ? projects
-    : projects.filter(p => p.category === activeFilter);
+  const filtered =
+    activeFilter === "All"
+      ? projects
+      : projects.filter((p) => p.category === activeFilter);
+
+  const openLink = (link: string) => {
+    window.open(link, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <>
@@ -162,8 +116,6 @@ export default function PortfolioSection() {
           position: relative;
           overflow: hidden;
         }
-
-       
 
         /* dot grid */
         .port-dotgrid {
@@ -609,7 +561,6 @@ export default function PortfolioSection() {
         <div className="port-watermark">Work</div>
 
         <div className="port-inner" ref={rootRef}>
-
           {/* ── Header ── */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -623,11 +574,13 @@ export default function PortfolioSection() {
             className="port-headline"
             initial={{ opacity: 0, y: 18 }}
             animate={rootInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.55, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
+            transition={{
+              duration: 0.55,
+              delay: 0.07,
+              ease: [0.16, 1, 0.3, 1],
+            }}
           >
-            Projects that{" "}
-            <span className="hl-blue">speak</span>{" "}
-            for{" "}
+            Projects that <span className="hl-blue">speak</span> for{" "}
             <span className="hl-orange">themselves</span>
           </motion.h2>
 
@@ -637,7 +590,9 @@ export default function PortfolioSection() {
             animate={rootInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.13, ease: [0.16, 1, 0.3, 1] }}
           >
-            A curated selection of work spanning websites, apps, marketing campaigns, branding, and video — each built to deliver measurable results.
+            A curated selection of work spanning websites, apps, marketing
+            campaigns, branding, and video — each built to deliver measurable
+            results.
           </motion.p>
 
           {/* ── Filter bar ── */}
@@ -645,10 +600,17 @@ export default function PortfolioSection() {
             className="port-filters"
             initial={{ opacity: 0, y: 12 }}
             animate={rootInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.45, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            transition={{
+              duration: 0.45,
+              delay: 0.18,
+              ease: [0.16, 1, 0.3, 1],
+            }}
           >
             {categories.map((cat) => {
-              const count = cat === "All" ? projects.length : projects.filter(p => p.category === cat).length;
+              const count =
+                cat === "All"
+                  ? projects.length
+                  : projects.filter((p) => p.category === cat).length;
               return (
                 <button
                   key={cat}
@@ -665,13 +627,12 @@ export default function PortfolioSection() {
           <hr className="port-divider" />
 
           {/* ── Grid ── */}
-          <motion.div
-            className="port-grid"
-            layout
-          >
+          <motion.div className="port-grid" layout>
             <AnimatePresence mode="popLayout">
               {filtered.length === 0 ? (
-                <div className="port-empty">No projects in this category yet.</div>
+                <div className="port-empty">
+                  No projects in this category yet.
+                </div>
               ) : (
                 filtered.map((project, i) => {
                   const c = accentMap[project.accent];
@@ -682,17 +643,37 @@ export default function PortfolioSection() {
                       layout
                       initial={{ opacity: 0, y: 28, scale: 0.97 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-                      transition={{ duration: 0.45, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                      exit={{
+                        opacity: 0,
+                        scale: 0.95,
+                        transition: { duration: 0.2 },
+                      }}
+                      transition={{
+                        duration: 0.45,
+                        delay: i * 0.06,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
                       onMouseEnter={() => setHovered(project.id)}
                       onMouseLeave={() => setHovered(null)}
+                      onClick={() => openLink(project.link)}
                     >
                       {/* Image */}
                       <div className="port-card-img-wrap">
-                        <img className="port-card-img" src={project.img} alt={project.title} />
+                        <img
+                          className="port-card-img"
+                          src={project.img}
+                          alt={project.title}
+                        />
                         <div
                           className="port-card-overlay"
-                          style={{ background: hovered === project.id ? c.overlayColor.replace("0.55", "0.68") : c.overlayColor }}
+                          style={{
+                            background:
+                              hovered === project.id
+                                ? c.overlayColor
+                                    .replace("0.55", "0.68")
+                                    .replace("0.50", "0.65")
+                                : c.overlayColor,
+                          }}
                         />
                         <div className="port-card-scanlines" />
 
@@ -702,7 +683,11 @@ export default function PortfolioSection() {
                         {/* category */}
                         <div
                           className="port-card-cat"
-                          style={{ background: c.pill.bg, color: c.pill.color, border: `1px solid ${c.tagBorder}` }}
+                          style={{
+                            background: c.pill.bg,
+                            color: c.pill.color,
+                            border: `1px solid ${c.tagBorder}`,
+                          }}
                         >
                           {project.category}
                         </div>
@@ -710,7 +695,9 @@ export default function PortfolioSection() {
                         {/* result */}
                         <div className="port-card-result-strip">
                           <div className="port-card-result-dot" />
-                          <span className="port-card-result-text">{project.result}</span>
+                          <span className="port-card-result-text">
+                            {project.result}
+                          </span>
                         </div>
                       </div>
 
@@ -720,11 +707,15 @@ export default function PortfolioSection() {
                         <p className="port-card-desc">{project.sub}</p>
 
                         <div className="port-card-tags">
-                          {project.tags.map(t => (
+                          {project.tags.map((t) => (
                             <span
                               key={t}
                               className="port-card-tag"
-                              style={{ background: c.tagBg, color: c.tagColor, borderColor: c.tagBorder }}
+                              style={{
+                                background: c.tagBg,
+                                color: c.tagColor,
+                                borderColor: c.tagBorder,
+                              }}
                             >
                               {t}
                             </span>
@@ -732,10 +723,21 @@ export default function PortfolioSection() {
                         </div>
 
                         <div className="port-card-footer">
-                          <span className="port-card-footer-label">View project</span>
+                          <span className="port-card-footer-label">
+                            View project
+                          </span>
                           <div className="port-card-arrow">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M5 12h14M13 6l6 6-6 6"/>
+                            <svg
+                              width="13"
+                              height="13"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="M5 12h14M13 6l6 6-6 6" />
                             </svg>
                           </div>
                         </div>
@@ -752,7 +754,11 @@ export default function PortfolioSection() {
             className="port-cta-strip"
             initial={{ opacity: 0, y: 24 }}
             animate={rootInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.55, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            transition={{
+              duration: 0.55,
+              delay: 0.35,
+              ease: [0.16, 1, 0.3, 1],
+            }}
           >
             <div className="port-cta-left">
               <div className="port-cta-label">Ready to collaborate?</div>
@@ -761,15 +767,24 @@ export default function PortfolioSection() {
                 <span className="hl-orange">success story</span>
               </p>
             </div>
-            <a href="#contact" className="port-cta-btn">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="22" y1="2" x2="11" y2="13"/>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            <Link to="/contact" className="port-cta-btn">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="22" y1="2" x2="11" y2="13" />
+                <polygon points="22 2 15 22 11 13 2 9 22 2" />
               </svg>
-              <span>Start a project</span>
-            </a>
-          </motion.div>
 
+              <span>Start your project</span>
+            </Link>
+          </motion.div>
         </div>
       </section>
     </>

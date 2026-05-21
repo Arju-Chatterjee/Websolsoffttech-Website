@@ -15,7 +15,10 @@ import Contact from "./pages/Contact";
 import ContactCTA from "./components/ContactCTA";
 import OurProcess from "./components/OurProcess";
 import FAQ from "./components/FAQ";
-
+import PrivacyPolicy from "./components/PrivacyPolicy";
+import TermsOfService from "./components/TermsOfService";
+import RefundPolicy from "./components/RefundPolicy";
+import WhatsAppPopup from "./components/WhatsappPopup";
 
 function App() {
   return (
@@ -36,8 +39,15 @@ function App() {
 
         <Route path="/contact-cta" element={<ContactCTA />} />
         <Route path="/our-process" element={<OurProcess />} />
-         <Route path="/FAQ" element={<FAQ />} />
+
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/refund-policy" element={<RefundPolicy />} />
       </Routes>
+
+      {/* WhatsApp Popup */}
+      <WhatsAppPopup />
 
       {/* Footer */}
       <Footer />

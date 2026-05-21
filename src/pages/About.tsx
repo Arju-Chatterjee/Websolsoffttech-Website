@@ -19,8 +19,8 @@ const services = [
 ];
 
 const stats = [
-  { num: "2025", label: "Founded" },
-  { num: "14+", label: "Services offered" },
+  { num: "2026", label: "Founded" },
+  { num: "6+", label: "Services offered" },
   { num: "100%", label: "Client focus" },
   { num: "24hr", label: "Response time" },
 ];
@@ -531,7 +531,7 @@ export default function AboutSection() {
             animate={rootInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.13, ease: [0.16, 1, 0.3, 1] }}
           >
-            A fast-growing digital agency born in 2025 — headquartered in Udaipur, Tripura, India. We turn bold ideas into measurable digital growth.
+            A fast-growing digital agency born in 2026 — headquartered in Agartala, Tripura, India. We turn bold ideas into measurable digital growth.
           </motion.p>
 
           <hr className="about-divider" />
@@ -566,7 +566,7 @@ export default function AboutSection() {
               <div className="about-text-card">
                 <p className="about-card-label">Who we are</p>
                 <p className="about-card-text">
-                  WebSOL Soffttech is a fast-growing startup established in 2025, headquartered in Udaipur, Tripura, India. As a forward-thinking digital marketing and web solutions company, we specialize in delivering impactful online strategies tailored to modern business needs.
+                  WebSOL Soffttech is a fast-growing startup established in 2026, headquartered in Agartala, Tripura, India. As a forward-thinking digital marketing and web solutions company, we specialize in delivering impactful online strategies tailored to modern business needs.
                 </p>
                 <p className="about-card-text">
                   We work with businesses of all scales — from emerging startups to established enterprises across diverse industries. Our smart, scalable solutions are designed to empower small and medium businesses, helping them strengthen their digital presence, improve visibility, and drive consistent growth in sales.
@@ -618,13 +618,13 @@ export default function AboutSection() {
                 {/* location badge */}
                 <div className="about-loc-badge">
                   <div className="about-loc-dot" />
-                  <span className="about-loc-text">Udaipur, Tripura · India</span>
+                  <span className="about-loc-text">Agartala, Tripura · India</span>
                 </div>
 
                 <div className="about-img-strip">
                   <div>
                     <div className="about-img-strip-title">WebSOL Soffttech</div>
-                    <div style={{ fontSize: "0.52rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", marginTop: 3 }}>Est. 2025</div>
+                    <div style={{ fontSize: "0.52rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", marginTop: 3 }}>Est. 2026</div>
                   </div>
                   <div className="about-img-strip-loc">
                     Digital Agency<br/>Tripura · India

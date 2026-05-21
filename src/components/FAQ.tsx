@@ -112,13 +112,7 @@ export default function FAQSection() {
           position: relative;
           overflow: hidden;
         }
-        .faq-section::before {
-          content: '';
-          position: absolute;
-          top: 0; left: 0; right: 0;
-          height: 3px;
-          background: linear-gradient(90deg, var(--blue), var(--orange));
-        }
+      
         .faq-dotgrid {
           position: absolute; inset: 0; pointer-events: none;
           background-image: radial-gradient(circle, rgba(26,95,212,0.08) 1px, transparent 1px);

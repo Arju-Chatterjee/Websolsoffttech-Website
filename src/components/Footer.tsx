@@ -228,11 +228,11 @@ const Footer = () => {
         }
 
         /* ── TOP ACCENT LINE ── */
-        .footer-top-divider {
-          width: 100%;
-          height: 3px;
-          background: linear-gradient(90deg, var(--brand-blue) 0%, var(--brand-orange) 100%);
-        }
+        // .footer-top-divider {
+        //   width: 100%;
+        //   height: 3px;
+        //   background: linear-gradient(90deg, var(--brand-blue) 0%, var(--brand-orange) 100%);
+        // }
 
         /* ── CANVAS BG ── */
         .footer-canvas {
@@ -550,10 +550,30 @@ const Footer = () => {
           border-radius: 2px;
           opacity: 0.5;
         }
+
+    .footer-bottom {
+  position: relative;
+  z-index: 10;
+  border-top: 1px solid var(--border);
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(
+      90deg,
+      var(--brand-blue),
+      var(--brand-orange)
+    )
+    1;
+  background: rgba(232, 240, 252, 0.4);
+  padding: 1.5rem var(--content-pad);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  text-align: center;
+}
+}
       `}</style>
 
       <footer className="footer-root">
-        <div className="footer-top-divider" />
         <canvas className="footer-canvas" ref={canvasRef} />
 
         {/* ── CTA BANNER ── */}
@@ -690,7 +710,13 @@ const Footer = () => {
                               ? "/contact"
                               : link === "FAQ"
                                 ? "/faq"
-                                : "#"
+                                : link === "Privacy Policy"
+                                  ? "/privacy-policy"
+                                  : link === "Terms of Service"
+                                    ? "/terms-of-service"
+                                    : link === "Refund Policy"
+                                      ? "/refund-policy"
+                                      : "#"
                       }
                       className="footer-link"
                     >
