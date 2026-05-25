@@ -1,9 +1,12 @@
 # =============================================================================
-# Pipeline: source → Vite build (CI) → static artifact → rsync → Docker nginx
-# Mirrors survii43/balish_ecom_fe build-deploy-production.yml
+# Vite + React SPA — production deploy (homelab Docker/nginx pattern)
 #
-# Overrides: GitHub Variables (SERVER_*, HOST_PORT, PROJECT_DIR, CONTAINER_NAME)
-#            Secret: SSH_PRIVATE_KEY
+# Build:  npm ci → npm run build → dist/
+# Deploy: rsync dist/ + Docker/nginx → server (requires SSH_PRIVATE_KEY)
+#
+# GitHub Variables (required): SERVER_HOST
+# GitHub Variables (optional): SERVER_USER, PROJECT_DIR, CONTAINER_NAME, HOST_PORT
+# GitHub Secret (required for deploy): SSH_PRIVATE_KEY
 # =============================================================================
 name: Build and Deploy to Production
 
@@ -14,14 +17,13 @@ on:
 
 permissions:
   contents: read
-  actions: write
 
 concurrency:
   group: websolsoffttech-${{ github.ref }}
   cancel-in-progress: true
 
 env:
-  SERVER_HOST: ${{ vars.SERVER_HOST || '125.99.241.72' }}
+  SERVER_HOST: ${{ vars.SERVER_HOST }}
   SERVER_USER: ${{ vars.SERVER_USER || 'homelab' }}
   PROJECT_DIR: ${{ vars.PROJECT_DIR || '/home/homelab/websolsoffttech-website' }}
   CONTAINER_NAME: ${{ vars.CONTAINER_NAME || 'websolsoffttech-web' }}
@@ -40,16 +42,33 @@ jobs:
           node-version: "20"
           cache: npm
 
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
       - name: Production build
+        env:
+          NODE_ENV: production
         run: npm run build
+
+      - name: Verify build output
+        run: |
+          set -euo pipefail
+          test -f dist/index.html
+          test -d dist/assets
+          test -n "$(find dist/assets -name '*.js' -print -quit)"
+          test -n "$(find dist/assets -name '*.css' -print -quit)"
+          if grep -qE 'src="/src/' dist/index.html; then
+            echo "::error::dist/index.html still references dev /src/ paths"
+            exit 1
+          fi
+          echo "Build OK: $(du -sh dist | cut -f1)"
 
       - uses: actions/upload-artifact@v4
         with:
           name: vite-dist
           path: dist/
           retention-days: 3
+          if-no-files-found: error
 
   deploy:
     name: Deploy to server
@@ -65,18 +84,27 @@ jobs:
           name: vite-dist
           path: dist
 
-      - name: Check SSH key
-        id: check_ssh
+      - name: Verify downloaded artifact
         run: |
-          if [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then
-            echo "has_ssh_key=false" >> "$GITHUB_OUTPUT"
-            echo "::error::Configure secret SSH_PRIVATE_KEY (deploy key, read for Actions only)."
-          else
-            echo "has_ssh_key=true" >> "$GITHUB_OUTPUT"
+          set -euo pipefail
+          test -f dist/index.html
+          test -d dist/assets
+
+      - name: Validate deploy configuration
+        run: |
+          set -euo pipefail
+          missing=0
+          if [ -z "${{ env.SERVER_HOST }}" ]; then
+            echo "::error::Set GitHub variable SERVER_HOST (server IP or hostname)."
+            missing=1
           fi
+          if [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then
+            echo "::error::Set GitHub secret SSH_PRIVATE_KEY."
+            missing=1
+          fi
+          exit "$missing"
 
       - name: Install SSH key
-        if: steps.check_ssh.outputs.has_ssh_key == 'true'
         run: |
           set -euo pipefail
           mkdir -p ~/.ssh
@@ -88,63 +116,71 @@ jobs:
           ssh-keygen -l -f ~/.ssh/deploy_key >/dev/null
 
       - name: Trust server host key
-        if: steps.check_ssh.outputs.has_ssh_key == 'true'
         run: |
+          set -euo pipefail
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          ssh-keyscan -H -p 22 "${{ env.SERVER_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null || true
+          ssh-keyscan -H -p 22 "${{ env.SERVER_HOST }}" >> ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
 
       - name: SSH smoke test
-        if: steps.check_ssh.outputs.has_ssh_key == 'true'
         run: |
           ssh -i ~/.ssh/deploy_key \
             -o IdentitiesOnly=yes \
-            -o StrictHostKeyChecking=accept-new \
+            -o StrictHostKeyChecking=yes \
             "${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}" "echo ok"
 
       - name: Ensure remote directory
-        if: steps.check_ssh.outputs.has_ssh_key == 'true'
         run: |
-          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new \
+          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
             "${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}" \
             "mkdir -p '${{ env.PROJECT_DIR }}/dist' '${{ env.PROJECT_DIR }}/nginx'"
 
       - name: Rsync release bundle
-        if: steps.check_ssh.outputs.has_ssh_key == 'true'
         env:
           DEST: ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}:${{ env.PROJECT_DIR }}
         run: |
-          RSH="ssh -i $HOME/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+          set -euo pipefail
+          RSH="ssh -i $HOME/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes"
           rsync -avz --delete -e "$RSH" \
             ./Dockerfile ./docker-compose.yml "$DEST/"
-          rsync -avz -e "$RSH" ./nginx/ "$DEST/nginx/"
+          rsync -avz --delete -e "$RSH" ./nginx/ "$DEST/nginx/"
           rsync -avz --delete -e "$RSH" ./dist/ "$DEST/dist/"
 
       - name: Recreate container
-        if: steps.check_ssh.outputs.has_ssh_key == 'true'
         run: |
-          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new \
+          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
             "${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}" \
-            "set -euo pipefail; cd '${{ env.PROJECT_DIR }}'; export CONTAINER_NAME='${{ env.CONTAINER_NAME }}' HOST_PORT='${{ env.HOST_PORT }}'; docker compose down --remove-orphans 2>/dev/null || true; docker compose up -d --build; sleep 12; docker compose ps; docker ps --filter name='${{ env.CONTAINER_NAME }}' --format '{{.Names}} {{.Status}}' | grep -q ."
+            "set -euo pipefail
+             cd '${{ env.PROJECT_DIR }}'
+             export CONTAINER_NAME='${{ env.CONTAINER_NAME }}' HOST_PORT='${{ env.HOST_PORT }}'
+             docker compose down --remove-orphans 2>/dev/null || true
+             docker compose up -d --build
+             sleep 12
+             docker compose ps
+             docker ps --filter name='${{ env.CONTAINER_NAME }}' --format '{{.Names}} {{.Status}}' | grep -q ."
 
       - name: Health check (host port)
-        if: steps.check_ssh.outputs.has_ssh_key == 'true'
         run: |
-          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new \
+          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
             "${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}" \
-            "set -e; for i in 1 2 3 4 5 6 7 8 9 10; do curl -fsS http://127.0.0.1:${{ env.HOST_PORT }}/health | grep -q healthy && exit 0; sleep 3; done; docker logs '${{ env.CONTAINER_NAME }}' --tail=50 2>&1; exit 1"
+            "set -euo pipefail
+             for i in 1 2 3 4 5 6 7 8 9 10; do
+               if curl -fsS \"http://127.0.0.1:${{ env.HOST_PORT }}/health\" | grep -q healthy; then
+                 curl -fsS -o /dev/null \"http://127.0.0.1:${{ env.HOST_PORT }}/\"
+                 exit 0
+               fi
+               sleep 3
+             done
+             docker logs '${{ env.CONTAINER_NAME }}' --tail=80 2>&1
+             exit 1"
 
       - name: Remove SSH key
-        if: always() && steps.check_ssh.outputs.has_ssh_key == 'true'
+        if: always()
         run: rm -f ~/.ssh/deploy_key
 
-      - name: Skip deploy
-        if: steps.check_ssh.outputs.has_ssh_key == 'false'
-        run: echo "::notice::Deploy skipped — add SSH_PRIVATE_KEY."
-
       - name: Job summary
-        if: always()
+        if: success()
         run: |
           echo "## Websolsoffttech website" >> "$GITHUB_STEP_SUMMARY"
           echo "| | |" >> "$GITHUB_STEP_SUMMARY"
