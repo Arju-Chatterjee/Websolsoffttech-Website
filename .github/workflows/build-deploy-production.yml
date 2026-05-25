@@ -12,7 +12,7 @@ name: Build and Deploy to Production
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, production]
   workflow_dispatch:
 
 permissions:
