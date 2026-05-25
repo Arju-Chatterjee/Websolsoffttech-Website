@@ -1,0 +1,36 @@
+# Compose V2 — no top-level `version:` key (obsolete).
+name: websolsoffttech-website
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: websolsoffttech-web:latest
+    container_name: ${CONTAINER_NAME:-websolsoffttech-web}
+    restart: unless-stopped
+    init: true
+    ports:
+      - "${HOST_PORT:-9100}:9100"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:9100/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "com.homelab.project=websolsoffttech-website"
+      - "com.homelab.port=${HOST_PORT:-9100}"
+      - "com.homelab.type=frontend"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  app-network:
+    driver: bridge
+    name: websolsoffttech-network

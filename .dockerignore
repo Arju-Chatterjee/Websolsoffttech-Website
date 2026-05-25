@@ -1,0 +1,8 @@
+node_modules
+.git
+.github
+dist-ssr
+*.md
+.env*
+.vscode
+.idea

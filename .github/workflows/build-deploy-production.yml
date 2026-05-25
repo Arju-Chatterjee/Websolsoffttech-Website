@@ -1,8 +1,9 @@
 # =============================================================================
-# Pipeline: source → Vite build (CI) → static artifact → rsync → nginx reload
+# Pipeline: source → Vite build (CI) → static artifact → rsync → Docker nginx
+# Mirrors survii43/balish_ecom_fe build-deploy-production.yml
 #
-# Overrides: GitHub Variables (SERVER_*, PROJECT_DIR) or Secret (SSH_PRIVATE_KEY)
-# Pattern from balish_ecom / admin_panel build-deploy-production.yml
+# Overrides: GitHub Variables (SERVER_*, HOST_PORT, PROJECT_DIR, CONTAINER_NAME)
+#            Secret: SSH_PRIVATE_KEY
 # =============================================================================
 name: Build and Deploy to Production
 
@@ -13,15 +14,18 @@ on:
 
 permissions:
   contents: read
+  actions: write
 
 concurrency:
   group: websolsoffttech-${{ github.ref }}
   cancel-in-progress: true
 
 env:
-  SERVER_HOST: ${{ vars.SERVER_HOST }}
+  SERVER_HOST: ${{ vars.SERVER_HOST || '125.99.241.72' }}
   SERVER_USER: ${{ vars.SERVER_USER || 'homelab' }}
   PROJECT_DIR: ${{ vars.PROJECT_DIR || '/home/homelab/websolsoffttech-website' }}
+  CONTAINER_NAME: ${{ vars.CONTAINER_NAME || 'websolsoffttech-web' }}
+  HOST_PORT: ${{ vars.HOST_PORT || '9100' }}
 
 jobs:
   build:
@@ -54,6 +58,8 @@ jobs:
     if: success()
     timeout-minutes: 20
     steps:
+      - uses: actions/checkout@v4
+
       - uses: actions/download-artifact@v4
         with:
           name: vite-dist
@@ -102,22 +108,32 @@ jobs:
         run: |
           ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new \
             "${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}" \
-            "mkdir -p '${{ env.PROJECT_DIR }}/dist'"
+            "mkdir -p '${{ env.PROJECT_DIR }}/dist' '${{ env.PROJECT_DIR }}/nginx'"
 
       - name: Rsync release bundle
         if: steps.check_ssh.outputs.has_ssh_key == 'true'
         env:
-          DEST: ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}:${{ env.PROJECT_DIR }}/dist/
+          DEST: ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}:${{ env.PROJECT_DIR }}
         run: |
           RSH="ssh -i $HOME/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
-          rsync -avz --delete -e "$RSH" ./dist/ "$DEST"
+          rsync -avz --delete -e "$RSH" \
+            ./Dockerfile ./docker-compose.yml "$DEST/"
+          rsync -avz -e "$RSH" ./nginx/ "$DEST/nginx/"
+          rsync -avz --delete -e "$RSH" ./dist/ "$DEST/dist/"
 
-      - name: Reload nginx (if configured)
+      - name: Recreate container
         if: steps.check_ssh.outputs.has_ssh_key == 'true'
         run: |
           ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new \
             "${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}" \
-            "if command -v nginx >/dev/null 2>&1; then sudo nginx -t && sudo systemctl reload nginx; fi"
+            "set -euo pipefail; cd '${{ env.PROJECT_DIR }}'; export CONTAINER_NAME='${{ env.CONTAINER_NAME }}' HOST_PORT='${{ env.HOST_PORT }}'; docker compose down --remove-orphans 2>/dev/null || true; docker compose up -d --build; sleep 12; docker compose ps; docker ps --filter name='${{ env.CONTAINER_NAME }}' --format '{{.Names}} {{.Status}}' | grep -q ."
+
+      - name: Health check (host port)
+        if: steps.check_ssh.outputs.has_ssh_key == 'true'
+        run: |
+          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new \
+            "${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}" \
+            "set -e; for i in 1 2 3 4 5 6 7 8 9 10; do curl -fsS http://127.0.0.1:${{ env.HOST_PORT }}/health | grep -q healthy && exit 0; sleep 3; done; docker logs '${{ env.CONTAINER_NAME }}' --tail=50 2>&1; exit 1"
 
       - name: Remove SSH key
         if: always() && steps.check_ssh.outputs.has_ssh_key == 'true'
@@ -133,5 +149,6 @@ jobs:
           echo "## Websolsoffttech website" >> "$GITHUB_STEP_SUMMARY"
           echo "| | |" >> "$GITHUB_STEP_SUMMARY"
           echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Host | \`${{ env.SERVER_HOST }}\` |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Deploy path | \`${{ env.PROJECT_DIR }}/dist\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| App | http://${{ env.SERVER_HOST }}:${{ env.HOST_PORT }}/ |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Health | http://${{ env.SERVER_HOST }}:${{ env.HOST_PORT }}/health |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Container | \`${{ env.CONTAINER_NAME }}\` |" >> "$GITHUB_STEP_SUMMARY"
