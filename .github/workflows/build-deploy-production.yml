@@ -1,0 +1,137 @@
+# =============================================================================
+# Pipeline: source → Vite build (CI) → static artifact → rsync → nginx reload
+#
+# Overrides: GitHub Variables (SERVER_*, PROJECT_DIR) or Secret (SSH_PRIVATE_KEY)
+# Pattern from balish_ecom / admin_panel build-deploy-production.yml
+# =============================================================================
+name: Build and Deploy to Production
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: websolsoffttech-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  SERVER_HOST: ${{ vars.SERVER_HOST }}
+  SERVER_USER: ${{ vars.SERVER_USER || 'homelab' }}
+  PROJECT_DIR: ${{ vars.PROJECT_DIR || '/home/homelab/websolsoffttech-website' }}
+
+jobs:
+  build:
+    name: Build Vite app
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Production build
+        run: npm run build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vite-dist
+          path: dist/
+          retention-days: 3
+
+  deploy:
+    name: Deploy to server
+    runs-on: ubuntu-latest
+    needs: build
+    if: success()
+    timeout-minutes: 20
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: vite-dist
+          path: dist
+
+      - name: Check SSH key
+        id: check_ssh
+        run: |
+          if [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then
+            echo "has_ssh_key=false" >> "$GITHUB_OUTPUT"
+            echo "::error::Configure secret SSH_PRIVATE_KEY (deploy key, read for Actions only)."
+          else
+            echo "has_ssh_key=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install SSH key
+        if: steps.check_ssh.outputs.has_ssh_key == 'true'
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          test -s ~/.ssh/deploy_key
+          grep -qE "BEGIN (OPENSSH|RSA|EC|DSA) PRIVATE KEY" ~/.ssh/deploy_key
+          ssh-keygen -l -f ~/.ssh/deploy_key >/dev/null
+
+      - name: Trust server host key
+        if: steps.check_ssh.outputs.has_ssh_key == 'true'
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan -H -p 22 "${{ env.SERVER_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null || true
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: SSH smoke test
+        if: steps.check_ssh.outputs.has_ssh_key == 'true'
+        run: |
+          ssh -i ~/.ssh/deploy_key \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=accept-new \
+            "${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}" "echo ok"
+
+      - name: Ensure remote directory
+        if: steps.check_ssh.outputs.has_ssh_key == 'true'
+        run: |
+          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new \
+            "${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}" \
+            "mkdir -p '${{ env.PROJECT_DIR }}/dist'"
+
+      - name: Rsync release bundle
+        if: steps.check_ssh.outputs.has_ssh_key == 'true'
+        env:
+          DEST: ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}:${{ env.PROJECT_DIR }}/dist/
+        run: |
+          RSH="ssh -i $HOME/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+          rsync -avz --delete -e "$RSH" ./dist/ "$DEST"
+
+      - name: Reload nginx (if configured)
+        if: steps.check_ssh.outputs.has_ssh_key == 'true'
+        run: |
+          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new \
+            "${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}" \
+            "if command -v nginx >/dev/null 2>&1; then sudo nginx -t && sudo systemctl reload nginx; fi"
+
+      - name: Remove SSH key
+        if: always() && steps.check_ssh.outputs.has_ssh_key == 'true'
+        run: rm -f ~/.ssh/deploy_key
+
+      - name: Skip deploy
+        if: steps.check_ssh.outputs.has_ssh_key == 'false'
+        run: echo "::notice::Deploy skipped — add SSH_PRIVATE_KEY."
+
+      - name: Job summary
+        if: always()
+        run: |
+          echo "## Websolsoffttech website" >> "$GITHUB_STEP_SUMMARY"
+          echo "| | |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Host | \`${{ env.SERVER_HOST }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Deploy path | \`${{ env.PROJECT_DIR }}/dist\` |" >> "$GITHUB_STEP_SUMMARY"

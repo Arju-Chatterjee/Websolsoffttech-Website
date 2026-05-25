@@ -1,13 +1,6 @@
 import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-
-const stats = [
-  { value: "10+", label: "Projects Delivered" },
-  { value: "98%", label: "Client Satisfaction" },
-  { value: "3+", label: "Years Experience" },
-  { value: "10+", label: "Expert Team" },
-];
+import { useRef } from "react";
+import { motion } from "framer-motion";
 
 const tags = [
   "Web Development",
@@ -22,25 +15,6 @@ const tags = [
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-  const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
-
-  const rotateX = useTransform(springY, [-300, 300], [6, -6]);
-  const rotateY = useTransform(springX, [-300, 300], [-6, 6]);
-
-  useEffect(() => {
-    const handleMouse = (e: MouseEvent) => {
-      const cx = window.innerWidth / 2;
-      const cy = window.innerHeight / 2;
-      mouseX.set(e.clientX - cx);
-      mouseY.set(e.clientY - cy);
-    };
-    window.addEventListener("mousemove", handleMouse);
-    return () => window.removeEventListener("mousemove", handleMouse);
-  }, []);
 
   return (
     <>
