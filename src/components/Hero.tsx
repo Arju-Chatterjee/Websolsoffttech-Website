@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { useEffect, useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 
-const stats = [
-  { value: "10+", label: "Projects Delivered" },
-  { value: "98%", label: "Client Satisfaction" },
-  { value: "3+", label: "Years Experience" },
-  { value: "10+", label: "Expert Team" },
-];
+// const stats = [
+//   { value: "10+", label: "Projects Delivered" },
+//   { value: "98%", label: "Client Satisfaction" },
+//   { value: "3+", label: "Years Experience" },
+//   { value: "10+", label: "Expert Team" },
+// ];
 
 const tags = [
   "Web Development",
@@ -25,11 +25,11 @@ const HeroSection = () => {
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-  const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+  // const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  // const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
 
-  const rotateX = useTransform(springY, [-300, 300], [6, -6]);
-  const rotateY = useTransform(springX, [-300, 300], [-6, 6]);
+  // const rotateX = useTransform(springY, [-300, 300], [6, -6]);
+  // const rotateY = useTransform(springX, [-300, 300], [-6, 6]);
 
   useEffect(() => {
     const handleMouse = (e: MouseEvent) => {
@@ -522,12 +522,12 @@ const HeroSection = () => {
 
         {/* Particles */}
         {[
-          { top: "22%", left: "14%",  size: 3, dur: "6s",  color: "#1a5fd4", delay: "0s"   },
-          { top: "58%", left: "7%",   size: 2, dur: "8s",  color: "#f07820", delay: "1.2s" },
-          { top: "38%", right: "10%", size: 4, dur: "7s",  color: "#1a5fd4", delay: "2s"   },
-          { top: "72%", right: "18%", size: 2, dur: "9s",  color: "#f07820", delay: "0.5s" },
-          { top: "15%", right: "35%", size: 2, dur: "11s", color: "#1a5fd4", delay: "3s"   },
-          { top: "80%", left: "30%",  size: 3, dur: "7.5s",color: "#f07820", delay: "1.8s" },
+          { top: "22%", left: "14%", size: 3, dur: "6s", color: "#1a5fd4", delay: "0s" },
+          { top: "58%", left: "7%", size: 2, dur: "8s", color: "#f07820", delay: "1.2s" },
+          { top: "38%", right: "10%", size: 4, dur: "7s", color: "#1a5fd4", delay: "2s" },
+          { top: "72%", right: "18%", size: 2, dur: "9s", color: "#f07820", delay: "0.5s" },
+          { top: "15%", right: "35%", size: 2, dur: "11s", color: "#1a5fd4", delay: "3s" },
+          { top: "80%", left: "30%", size: 3, dur: "7.5s", color: "#f07820", delay: "1.8s" },
         ].map((p, i) => (
           <div
             key={i}
