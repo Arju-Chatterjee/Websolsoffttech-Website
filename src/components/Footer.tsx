@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Logo from "../assets/Logo.png";
 
 const footerLinks = {
   Services: [
@@ -622,7 +623,7 @@ const Footer = () => {
             >
               <a className="footer-logo" href="#">
                 <img
-                  src="src/assets/Logo.png"
+                  src={Logo}
                   alt="Websolsoffttech"
                   className="footer-logo-img"
                 />

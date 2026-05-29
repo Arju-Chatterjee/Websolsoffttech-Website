@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Logo from "../assets/Logo.png";
 
 const menuItems = [
   { label: "Home", num: "01", path: "/" },
@@ -389,7 +390,7 @@ const Navbar = () => {
           <Link to="/" className="nav-logo">
             <div className="logo-mark">
               <img
-                src="src/assets/Logo.png"
+                src={Logo}
                 alt="Websolsoffttech Logo"
               />
             </div>
