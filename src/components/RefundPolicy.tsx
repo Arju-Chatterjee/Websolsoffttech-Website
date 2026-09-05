@@ -4,14 +4,14 @@ import { motion, useInView } from "framer-motion";
 const lastUpdated = "January 1, 2025";
 
 // ── Discriminated union for content blocks ──────────────────────────────────
-type TextBlock      = { type: "text";          value: string };
-type HighlightBlock = { type: "highlight";     value: string };
-type ListBlock      = { type: "list";          items: string[] };
-type ServiceRow     = { service: string; policy: string };
-type TableBlock     = { type: "service-table"; rows: ServiceRow[] };
-type StepItem       = { step: string; title: string; desc: string };
-type StepsBlock     = { type: "steps";         items: StepItem[] };
-type ContentBlock   = TextBlock | HighlightBlock | ListBlock | TableBlock | StepsBlock;
+type TextBlock = { type: "text"; value: string };
+type HighlightBlock = { type: "highlight"; value: string };
+type ListBlock = { type: "list"; items: string[] };
+type ServiceRow = { service: string; policy: string };
+type TableBlock = { type: "service-table"; rows: ServiceRow[] };
+type StepItem = { step: string; title: string; desc: string };
+type StepsBlock = { type: "steps"; items: StepItem[] };
+type ContentBlock = TextBlock | HighlightBlock | ListBlock | TableBlock | StepsBlock;
 
 interface Section {
   id: string;
@@ -30,8 +30,8 @@ const sections: Section[] = [
     accent: "blue",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8"/>
-        <path d="M12 8v4M12 16h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M12 8v4M12 16h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       </svg>
     ),
     content: [
@@ -56,8 +56,8 @@ const sections: Section[] = [
     accent: "amber",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8"/>
-        <path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
       </svg>
     ),
     content: [
@@ -91,8 +91,8 @@ const sections: Section[] = [
     accent: "blue",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8"/>
+        <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8" />
       </svg>
     ),
     content: [
@@ -123,7 +123,7 @@ const sections: Section[] = [
     accent: "amber",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
     content: [
@@ -154,10 +154,10 @@ const sections: Section[] = [
     accent: "blue",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.8"/>
-        <rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.8"/>
-        <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.8"/>
-        <rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.8"/>
+        <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.8" />
+        <rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.8" />
+        <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.8" />
+        <rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.8" />
       </svg>
     ),
     content: [
@@ -168,16 +168,16 @@ const sections: Section[] = [
       {
         type: "service-table",
         rows: [
-          { service: "Website Development",      policy: "Deposit non-refundable. Partial refund possible on unstarted phases only." },
-          { service: "Mobile App Development",   policy: "Deposit non-refundable. Refund evaluated per milestone completion status." },
-          { service: "Digital Marketing / SEO",  policy: "Non-refundable once campaign is live. First month's retainer is non-refundable." },
-          { service: "Google Ads / Meta Ads",    policy: "Management fees non-refundable. Ad spend refunds subject to platform policies." },
-          { service: "Graphic Design / Logo",    policy: "Non-refundable after first concept presentation." },
-          { service: "Video Production",         policy: "Non-refundable once filming or editing has commenced." },
-          { service: "Content Writing",          policy: "Non-refundable once drafts are delivered for review." },
-          { service: "Social Media Management",  policy: "Current month's fee non-refundable. Cancel with 30 days' notice." },
-          { service: "Google My Business",       policy: "Non-refundable once setup is initiated." },
-          { service: "Data Entry",               policy: "Non-refundable once work has commenced." },
+          { service: "Website Development", policy: "Deposit non-refundable. Partial refund possible on unstarted phases only." },
+          { service: "Mobile App Development", policy: "Deposit non-refundable. Refund evaluated per milestone completion status." },
+          { service: "Digital Marketing / SEO", policy: "Non-refundable once campaign is live. First month's retainer is non-refundable." },
+          { service: "Google Ads / Meta Ads", policy: "Management fees non-refundable. Ad spend refunds subject to platform policies." },
+          { service: "Graphic Design / Logo", policy: "Non-refundable after first concept presentation." },
+          { service: "Video Production", policy: "Non-refundable once filming or editing has commenced." },
+          { service: "Content Writing", policy: "Non-refundable once drafts are delivered for review." },
+          { service: "Social Media Management", policy: "Current month's fee non-refundable. Cancel with 30 days' notice." },
+          { service: "Google My Business", policy: "Non-refundable once setup is initiated." },
+          { service: "Data Entry", policy: "Non-refundable once work has commenced." },
         ],
       },
     ],
@@ -189,9 +189,9 @@ const sections: Section[] = [
     accent: "amber",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.8"/>
-        <path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
-        <path d="M9 15l2 2 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+        <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M9 15l2 2 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
     content: [
@@ -211,7 +211,7 @@ const sections: Section[] = [
       },
       {
         type: "highlight",
-        value: "Verbal cancellation requests are not accepted. All cancellations must be submitted in writing to info.websolsoffttech@gmail.com and are effective from the date of written acknowledgement by our team.",
+        value: "Verbal cancellation requests are not accepted. All cancellations must be submitted in writing to info@websolsoffttech.in and are effective from the date of written acknowledgement by our team.",
       },
     ],
   },
@@ -222,7 +222,7 @@ const sections: Section[] = [
     accent: "blue",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
     content: [
@@ -233,10 +233,10 @@ const sections: Section[] = [
       {
         type: "steps",
         items: [
-          { step: "01", title: "Submit a written request",  desc: "Email info.websolsoffttech@gmail.com with subject line 'Refund Request — [Your Project Name]'" },
-          { step: "02", title: "Include required details",  desc: "Provide your full name, project name, payment date, amount paid, and reason for the refund request" },
-          { step: "03", title: "Review period",             desc: "Our team will review your request and respond within 5–7 business days with a decision" },
-          { step: "04", title: "Resolution",                desc: "If approved, refunds are processed within 7–14 business days to the original payment method" },
+          { step: "01", title: "Submit a written request", desc: "Email info@websolsoffttech.in with subject line 'Refund Request — [Your Project Name]'" },
+          { step: "02", title: "Include required details", desc: "Provide your full name, project name, payment date, amount paid, and reason for the refund request" },
+          { step: "03", title: "Review period", desc: "Our team will review your request and respond within 5–7 business days with a decision" },
+          { step: "04", title: "Resolution", desc: "If approved, refunds are processed within 7–14 business days to the original payment method" },
         ],
       },
       {
@@ -252,7 +252,7 @@ const sections: Section[] = [
     accent: "amber",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <path d="M3 6l9-4 9 4v6c0 5.25-3.75 9.75-9 11-5.25-1.25-9-5.75-9-11V6z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M3 6l9-4 9 4v6c0 5.25-3.75 9.75-9 11-5.25-1.25-9-5.75-9-11V6z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
     content: [
@@ -271,7 +271,7 @@ const sections: Section[] = [
       },
       {
         type: "highlight",
-        value: "If you have a genuine concern about a charge, please reach out to us first at info.websolsoffttech@gmail.com or +91 92337 70627. We are committed to resolving disputes fairly and transparently.",
+        value: "If you have a genuine concern about a charge, please reach out to us first at info@websolsoffttech.in or +91 92337 70627. We are committed to resolving disputes fairly and transparently.",
       },
     ],
   },
@@ -288,8 +288,8 @@ function RenderBlock({ block }: { block: ContentBlock }) {
       <div className="rp-highlight">
         <span className="rp-highlight-icon">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M12 9v4M12 17h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 9v4M12 17h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
         </span>
         <p className="rp-highlight-text">{block.value}</p>
@@ -782,14 +782,14 @@ export default function RefundPolicy() {
           >
             <div className="rp-badge rp-badge-updated">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-                <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+                <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
               Last updated: <span>{lastUpdated}</span>
             </div>
             <div className="rp-badge rp-badge-note">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
-                <path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
               <span>{sections.length}</span> sections · Applies to all services
             </div>
@@ -861,17 +861,17 @@ export default function RefundPolicy() {
                   <div className="rp-footer-info">
                     <div className="rp-footer-icon">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
-                        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
+                        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor" />
                       </svg>
                     </div>
-                    <a href="mailto:info.websolsoffttech@gmail.com" className="rp-link">
-                      info.websolsoffttech@gmail.com
+                    <a href="mailto:info@websolsoffttech.in" className="rp-link">
+                      info@websolsoffttech.in
                     </a>
                   </div>
                   <div className="rp-footer-info">
                     <div className="rp-footer-icon">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                       </svg>
                     </div>
                     <a href="https://wa.me/919233770627" target="_blank" rel="noopener noreferrer" className="rp-link">
@@ -881,8 +881,8 @@ export default function RefundPolicy() {
                   <div className="rp-footer-info">
                     <div className="rp-footer-icon">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
-                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-                        <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+                        <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                       </svg>
                     </div>
                     Response within 5–7 business days
@@ -890,7 +890,7 @@ export default function RefundPolicy() {
                   <div className="rp-footer-info">
                     <div className="rp-footer-icon">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor" />
                       </svg>
                     </div>
                     Udaipur, Tripura, India
@@ -898,12 +898,12 @@ export default function RefundPolicy() {
                 </div>
                 <div className="rp-footer-btns">
                   <a
-                    href="mailto:info.websolsoffttech@gmail.com?subject=Refund Request"
+                    href="mailto:info@websolsoffttech.in?subject=Refund Request"
                     className="rp-btn primary"
                   >
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
-                      <line x1="22" y1="2" x2="11" y2="13" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                      <polygon points="22 2 15 22 11 13 2 9 22 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                      <line x1="22" y1="2" x2="11" y2="13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      <polygon points="22 2 15 22 11 13 2 9 22 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
                     </svg>
                     <span>Submit refund request</span>
                   </a>
@@ -914,7 +914,7 @@ export default function RefundPolicy() {
                     className="rp-btn secondary"
                   >
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                     </svg>
                     <span>Chat on WhatsApp</span>
                   </a>

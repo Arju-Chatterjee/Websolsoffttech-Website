@@ -90,7 +90,7 @@ const socials = [
   {
     label: "FB",
     name: "Facebook",
-    href: "https://www.facebook.com/websolsoffttech",
+    href: "https://www.facebook.com/WebSolSoffttechh",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
         <path d="M22 12.07C22 6.477 17.523 2 12 2S2 6.477 2 12.07c0 5.018 3.657 9.173 8.438 9.93v-7.02H7.898v-2.91h2.54V9.845c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.196 2.238.196v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.877h2.773l-.443 2.91h-2.33V22c4.781-.757 8.438-4.912 8.438-9.93z" />
@@ -628,7 +628,7 @@ const Footer = () => {
                   className="footer-logo-img"
                 />
                 <span className="footer-logo-text">
-                  Websol<span>soffttech</span>
+                  Websol<span>Soffttech</span>
                 </span>
               </a>
 
@@ -653,7 +653,7 @@ const Footer = () => {
 
               <div className="contact-item">
                 <Mail size={14} />
-                info.websolsoffttech@gmail.com
+                info@websolsoffttech.in
               </div>
               <div className="contact-item">
                 <Phone size={14} />
@@ -739,7 +739,7 @@ const Footer = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
         >
           <p className="footer-copy">
-            © 2026 <span>Websolsoffttech</span> — All rights reserved
+            © 2026 <span>Websol Soffttech</span> — All rights reserved
           </p>
           <p className="footer-tagline">
             Engineering the future, one product at a time.

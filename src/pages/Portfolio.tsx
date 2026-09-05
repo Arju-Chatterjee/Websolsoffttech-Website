@@ -52,6 +52,76 @@ const projects = [
     result: "Higher Online Reach",
     link: "https://share.google/24Df6refA60UQYFmk",
   },
+  {
+    id: 4,
+    title: "VLCC Skincare, Beauty Hair & Makeup Salon",
+    category: "Marketing",
+    sub: "Complete digital marketing solutions including ad creatives, paid campaigns, and social media growth strategies.",
+    tags: ["Ads Video", "Google Ads", "Meta Ads", "Social Media Management"],
+    accent: "amber" as const,
+    year: "2026",
+    link: "https://share.google/SVVeVRMfQ1uf0iCh2",
+  },
+  {
+    id: 5,
+    title: "Nihar inn guest house",
+    category: "Marketing",
+    sub: "Complete digital marketing solutions including ad creatives, paid campaigns, and social media growth strategies.",
+    tags: ["Ads Video", "Google Ads", "Meta Ads", "Social Media Management"],
+    accent: "blue" as const,
+    year: "2026",
+    link: "https://share.google/Lq8RArq0eg8KDvUUO",
+  },
+  {
+    id: 6,
+    title: "Kakoli's Carpe Diem",
+    category: "Marketing",
+    sub: "Complete digital marketing solutions including ad creatives, paid campaigns, and social media growth strategies.",
+    tags: ["Ads Video", "Google Ads", "Meta Ads", "Social Media Management"],
+    accent: "amber" as const,
+    year: "2026",
+    link: "https://share.google/AEoBGB59abWj6DEST",
+  },
+  {
+    id: 7,
+    title: "JAWED HABIB HAIR BEAUTY & MAKEUP",
+    category: "Marketing",
+    sub: "Complete digital marketing solutions including ad creatives, paid campaigns, and social media growth strategies.",
+    tags: ["Ads Video", "Google Ads", "Meta Ads", "Social Media Management"],
+    accent: "blue" as const,
+    year: "2026",
+    link: "https://share.google/EReTNoakqI7PgfUUe",
+  },
+  {
+    id: 8,
+    title: "GRIHAM HOUSING - Interior Design, Building Planning & Construction",
+    category: "Marketing",
+    sub: "Complete digital marketing solutions including ad creatives, paid campaigns, and social media growth strategies.",
+    tags: ["Ads Video", "Google Ads", "Meta Ads", "Social Media Management"],
+    accent: "amber" as const,
+    year: "2026",
+    link: "https://share.google/z6vZaUdb8R2JG5mlX",
+  },
+  {
+    id: 9,
+    title: "HAPPY HOME DECOR- Best Interior designer In Tripura | Agartala",
+    category: "Marketing",
+    sub: "Complete digital marketing solutions including ad creatives, paid campaigns, and social media growth strategies.",
+    tags: ["Ads Video", "Google Ads", "Meta Ads", "Social Media Management"],
+    accent: "blue" as const,
+    year: "2026",
+    link: "https://share.google/iouG74PHog8o03lre",
+  },
+  {
+    id: 10,
+    title: "Destination Vacation | Best travel agency in Agartala",
+    category: "Marketing",
+    sub: "Complete digital marketing solutions including ad creatives, paid campaigns, and social media growth strategies.",
+    tags: ["Ads Video", "Google Ads", "Meta Ads", "Social Media Management"],
+    accent: "amber" as const,
+    year: "2026",
+    link: "https://share.google/1WBlC37NjmEYbqzhl",
+  },
 ];
 
 const accentMap = {
@@ -657,52 +727,86 @@ export default function PortfolioSection() {
                       onMouseLeave={() => setHovered(null)}
                       onClick={() => openLink(project.link)}
                     >
-                      {/* Image */}
-                      <div className="port-card-img-wrap">
-                        <img
-                          className="port-card-img"
-                          src={project.img}
-                          alt={project.title}
-                        />
-                        <div
-                          className="port-card-overlay"
-                          style={{
-                            background:
-                              hovered === project.id
-                                ? c.overlayColor
-                                    .replace("0.55", "0.68")
-                                    .replace("0.50", "0.65")
-                                : c.overlayColor,
-                          }}
-                        />
-                        <div className="port-card-scanlines" />
+                      {/* Image (conditionally rendered) */}
+                      {project.img && (
+                        <div className="port-card-img-wrap">
+                          <img
+                            className="port-card-img"
+                            src={project.img}
+                            alt={project.title}
+                          />
+                          <div
+                            className="port-card-overlay"
+                            style={{
+                              background:
+                                hovered === project.id
+                                  ? c.overlayColor
+                                      .replace("0.55", "0.68")
+                                      .replace("0.50", "0.65")
+                                  : c.overlayColor,
+                            }}
+                          />
+                          <div className="port-card-scanlines" />
 
-                        {/* year */}
-                        <div className="port-card-year">{project.year}</div>
+                          {/* year */}
+                          <div className="port-card-year">{project.year}</div>
 
-                        {/* category */}
-                        <div
-                          className="port-card-cat"
-                          style={{
-                            background: c.pill.bg,
-                            color: c.pill.color,
-                            border: `1px solid ${c.tagBorder}`,
-                          }}
-                        >
-                          {project.category}
+                          {/* category */}
+                          <div
+                            className="port-card-cat"
+                            style={{
+                              background: c.pill.bg,
+                              color: c.pill.color,
+                              border: `1px solid ${c.tagBorder}`,
+                            }}
+                          >
+                            {project.category}
+                          </div>
+
+                          {/* result */}
+                          {project.result && (
+                            <div className="port-card-result-strip">
+                              <div className="port-card-result-dot" />
+                              <span className="port-card-result-text">
+                                {project.result}
+                              </span>
+                            </div>
+                          )}
                         </div>
-
-                        {/* result */}
-                        <div className="port-card-result-strip">
-                          <div className="port-card-result-dot" />
-                          <span className="port-card-result-text">
-                            {project.result}
-                          </span>
-                        </div>
-                      </div>
+                      )}
 
                       {/* Body */}
                       <div className="port-card-body">
+                        {!project.img && (
+                          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
+                            <div
+                              className="port-card-cat"
+                              style={{
+                                position: 'relative',
+                                top: 'auto',
+                                right: 'auto',
+                                background: c.pill.bg,
+                                color: c.pill.color,
+                                border: `1px solid ${c.tagBorder}`,
+                              }}
+                            >
+                              {project.category}
+                            </div>
+                            <div
+                              className="port-card-year"
+                              style={{
+                                position: 'relative',
+                                top: 'auto',
+                                left: 'auto',
+                                color: 'var(--text-muted)',
+                                border: `1px solid var(--border)`,
+                                background: 'transparent'
+                              }}
+                            >
+                              {project.year}
+                            </div>
+                          </div>
+                        )}
                         <h3 className="port-card-title">{project.title}</h3>
                         <p className="port-card-desc">{project.sub}</p>
 

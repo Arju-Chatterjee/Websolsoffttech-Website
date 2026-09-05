@@ -395,7 +395,7 @@ const Navbar = () => {
               />
             </div>
             <span className="logo-text">
-              Websol<span>soffttech</span>
+              Websol<span>Soffttech</span>
             </span>
           </Link>
 
@@ -502,7 +502,7 @@ const Navbar = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.55 }}
             >
-              © 2026 Websolsoffttech — All rights reserved
+              © 2026 Websol Soffttech — All rights reserved
             </motion.div>
           </motion.div>
         )}

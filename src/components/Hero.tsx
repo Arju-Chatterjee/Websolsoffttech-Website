@@ -546,7 +546,7 @@ const HeroSection = () => {
           />
         ))}
 
-        <div className="hero-side-label">Websolsoffttech — Digital Excellence</div>
+        <div className="hero-side-label">Websol Soffttech — Digital Excellence</div>
 
         <div className="hero-inner">
           {/* LEFT */}

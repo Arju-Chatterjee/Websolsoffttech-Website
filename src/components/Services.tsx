@@ -13,8 +13,8 @@ const services = [
     rightImg: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&q=80",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-        <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.8"/>
-        <path d="M8 21h8M12 17v4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+        <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M8 21h8M12 17v4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
       </svg>
     ),
   },
@@ -29,8 +29,8 @@ const services = [
     rightImg: "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?w=800&q=80",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-        <rect x="5" y="2" width="14" height="20" rx="2" stroke="currentColor" strokeWidth="1.8"/>
-        <circle cx="12" cy="17" r="1" fill="currentColor"/>
+        <rect x="5" y="2" width="14" height="20" rx="2" stroke="currentColor" strokeWidth="1.8" />
+        <circle cx="12" cy="17" r="1" fill="currentColor" />
       </svg>
     ),
   },
@@ -45,7 +45,7 @@ const services = [
     rightImg: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&q=80",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-        <path d="M8 6l-4 6 4 6M16 6l4 6-4 6M14 4l-4 16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M8 6l-4 6 4 6M16 6l4 6-4 6M14 4l-4 16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },
@@ -60,15 +60,30 @@ const services = [
     rightImg: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-        <path d="M3 17l5-6 4 4 5-7 5 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-        <circle cx="8" cy="11" r="1.5" fill="currentColor"/>
-        <circle cx="17" cy="8" r="1.5" fill="currentColor"/>
+        <path d="M3 17l5-6 4 4 5-7 5 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="8" cy="11" r="1.5" fill="currentColor" />
+        <circle cx="17" cy="8" r="1.5" fill="currentColor" />
       </svg>
     ),
   },
   {
     id: 5,
     num: "05",
+    title: "Search Engine Optimization",
+    sub: "Data-driven SEO strategies to rank higher, drive organic traffic, and outpace competitors.",
+    tags: ["On-Page SEO", "Off-Page SEO", "Technical SEO", "Local SEO", "Content Strategy"],
+    accent: "amber" as const,
+    leftImg: "https://images.unsplash.com/photo-1572177812156-58036aae439c?w=800&q=80",
+    rightImg: "https://images.unsplash.com/photo-1432888622747-4eb9a8f2c1d9?w=800&q=80",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    id: 6,
+    num: "06",
     title: "Video & Production",
     sub: "Professional video production, editing, and storytelling to enhance brand visibility and engagement.",
     tags: [],
@@ -77,14 +92,14 @@ const services = [
     rightImg: "https://www.lemonlight.com/wp-content/uploads/2023/11/Video-Production-101-Pillar-Page-Hero-Image.png",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-        <rect x="2" y="6" width="14" height="12" rx="2" stroke="currentColor" strokeWidth="1.8"/>
-        <path d="M16 10l6-3v10l-6-3v-4z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/>
+        <rect x="2" y="6" width="14" height="12" rx="2" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M16 10l6-3v10l-6-3v-4z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
       </svg>
     ),
   },
   {
-    id: 6,
-    num: "06",
+    id: 7,
+    num: "07",
     title: "Graphic Designing",
     sub: "Creative graphic design solutions including branding, social media creatives, and marketing materials.",
     tags: [],
@@ -93,9 +108,9 @@ const services = [
     rightImg: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8"/>
-        <circle cx="12" cy="12" r="3" fill="currentColor" opacity="0.3"/>
-        <path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+        <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
+        <circle cx="12" cy="12" r="3" fill="currentColor" opacity="0.3" />
+        <path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
       </svg>
     ),
   },

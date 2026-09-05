@@ -27,14 +27,14 @@ function App() {
       {/* Global SEO & Local Business Schema */}
       <Helmet>
         <link rel="canonical" href="https://websolsoffttech.in/" />
-        <title>WEBSOLSOFFTTECH</title>
+        <title>WEBSOL SOFFTTECH</title>
         <meta
           name="description"
           content="Leading tech and creative agency in Tripura. We elevate brands through expert Web & Mobile App Development, Digital Marketing, Professional Video Production, and Graphic Design."
         />
         <meta
           name="keywords"
-          content="Web Development Tripura, Mobile App Development Tripura, Digital Marketing Tripura, Video Production Tripura, Video Editing, Graphic Design Tripura, Branding Agency, Social Media Creatives, Tech Company Tripura, WebSolsOfftTech"
+          content="Web Development Tripura, Mobile App Development Tripura, Digital Marketing Tripura, Video Production Tripura, Video Editing, Graphic Design Tripura, Branding Agency, Social Media Creatives, Tech Company Tripura, WebSol SOfftTech"
         />
 
         {/* Open Graph / Facebook (Helps when links are shared on social media) */}

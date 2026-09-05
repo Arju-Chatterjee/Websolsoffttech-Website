@@ -8,7 +8,8 @@ const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
 type PlanPrice =
   | { type: "split"; oneTime: number; monthly: number; yearly: number }
   | { type: "toggle"; monthly: number; yearly: number }
-  | { type: "negotiation" };
+  | { type: "negotiation" }
+  | { type: "fixed"; amount: number; suffix?: string };
 
 interface Plan {
   num: string;
@@ -46,10 +47,9 @@ const services: Service[] = [
         name: "Basic",
         tagline: "Perfect for startups and local businesses",
         price: {
-          type: "split",
-          oneTime: 12000,
-          monthly: 700,
-          yearly: 699,
+          type: "fixed",
+          amount: 14999,
+          suffix: "+ 1 year Free Maintenance",
         },
         highlight: false,
         badge: null,
@@ -60,8 +60,7 @@ const services: Service[] = [
           "Basic SEO Setup",
           "Contact Form",
           "Domain Setup Assistance",
-          "1 Month Support",
-          "Monthly Server Maintenance",
+          "1 Years Free Support",
         ],
         excluded: [
           "CMS Integration",
@@ -76,10 +75,9 @@ const services: Service[] = [
         name: "Standard",
         tagline: "Ideal for growing businesses and brands",
         price: {
-          type: "split",
-          oneTime: 18000,
-          monthly: 1000,
-          yearly: 899,
+          type: "fixed",
+          amount: 19999,
+          suffix: "+ 1 year Free Maintenance",
         },
         highlight: true,
         badge: "Most Popular",
@@ -91,10 +89,10 @@ const services: Service[] = [
           "Admin Panel",
           "CMS Integration",
           "Custom Contact Forms",
-          "3 Months Support",
           "Performance Optimization",
           "Analytics Integration",
-          "Monthly Server + Database Maintenance",
+          "1 Years Free Support",
+          "Yearly Server + Database Maintenance",
         ],
         excluded: ["E-Commerce", "Dedicated Manager"],
         cta: "Start Building",
@@ -104,10 +102,9 @@ const services: Service[] = [
         name: "Premium",
         tagline: "Advanced solutions for large businesses",
         price: {
-          type: "split",
-          oneTime: 25000,
-          monthly: 1200,
-          yearly: 1099,
+          type: "fixed",
+          amount: 25000,
+          suffix: "+ 1 year Free Maintenance",
         },
         highlight: false,
         badge: null,
@@ -121,8 +118,8 @@ const services: Service[] = [
           "Custom Integrations",
           "Priority Support",
           "Dedicated Project Assistance",
-          "6 Months Support",
-          "Monthly Server + Database Maintenance",
+          "1 Years Free Support",
+          "Yearly Server + Database Maintenance",
         ],
         excluded: [],
         cta: "Contact Us",
@@ -144,20 +141,19 @@ const services: Service[] = [
         name: "Basic",
         tagline: "Simple apps for startups",
         price: {
-          type: "split",
-          oneTime: 20000,
-          monthly: 1499,
-          yearly: 999,
+          type: "fixed",
+          amount: 29999,
+          suffix: "+ 1 year Free Support",
         },
         highlight: false,
         badge: null,
         features: [
           "5 Screens",
-          "iOS or Android",
+          "Android App",
           "Basic Auth",
           "Push Notifications",
-          "2 Months Support",
-          "App Store Submission",
+          "1 Years Free Support",
+          "Play Store Submission",
         ],
         excluded: [
           "Custom Animations",
@@ -172,21 +168,20 @@ const services: Service[] = [
         name: "Standard",
         tagline: "Feature-rich cross-platform apps",
         price: {
-          type: "split",
-          oneTime: 30000,
-          monthly: 2499,
-          yearly: 1999,
+          type: "fixed",
+          amount: 49999,
+          suffix: "+ 1 year Free Support",
         },
         highlight: true,
         badge: "Most Popular",
         features: [
           "20 Screens",
-          "iOS + Android",
+          "Android App",
           "Custom Auth",
           "REST API Integration",
           "Admin Panel",
           "Custom Animations",
-          "4 Months Support",
+          "1 Years Free Support",
           "Analytics Integration",
         ],
         excluded: ["AI Features", "Dedicated Manager"],
@@ -197,10 +192,9 @@ const services: Service[] = [
         name: "Premium",
         tagline: "Complete mobile ecosystem",
         price: {
-          type: "split",
-          oneTime: 40000,
-          monthly: 3499,
-          yearly: 2999,
+          type: "fixed",
+          amount: 109999,
+          suffix: "+ 1 year Free Support",
         },
         highlight: false,
         badge: null,
@@ -211,7 +205,7 @@ const services: Service[] = [
           "Real-time Database",
           "Custom Backend",
           "Dedicated Manager",
-          "6 Months Support",
+          "1 Years Free Support",
           "SLA Guarantee",
           "White-label Option",
           "CI/CD Pipeline",
@@ -236,10 +230,8 @@ const services: Service[] = [
         name: "Basic",
         tagline: "Single workflow automation",
         price: {
-          type: "split",
-          oneTime: 25000,
-          monthly: 1999,
-          yearly: 1499,
+          type: "fixed",
+          amount: 25000,
         },
         highlight: false,
         badge: null,
@@ -264,10 +256,8 @@ const services: Service[] = [
         name: "Standard",
         tagline: "Multi-module business platform",
         price: {
-          type: "split",
-          oneTime: 40000,
-          monthly: 2999,
-          yearly: 2499,
+          type: "fixed",
+          amount: 40000,
         },
         highlight: true,
         badge: "Most Popular",
@@ -289,10 +279,8 @@ const services: Service[] = [
         name: "Premium",
         tagline: "Full enterprise-grade software",
         price: {
-          type: "split",
-          oneTime: 65000,
-          monthly: 3999,
-          yearly: 3499,
+          type: "fixed",
+          amount: 65000,
         },
         highlight: false,
         badge: null,
@@ -328,7 +316,7 @@ const services: Service[] = [
         name: "Basic",
         tagline: "Perfect for startups & local businesses",
         note: "Ad budget will be paid directly by the client to the respective platform",
-        price: { type: "toggle", monthly: 4000, yearly: 3500 },
+        price: { type: "fixed", amount: 6999, suffix: "/ month" },
         highlight: false,
         badge: null,
         features: [
@@ -366,7 +354,7 @@ const services: Service[] = [
         name: "Standard",
         tagline: "Advanced marketing for growing brands",
         note: "Ad budget will be paid directly by the client to the respective platform",
-        price: { type: "toggle", monthly: 6000, yearly: 5500 },
+        price: { type: "fixed", amount: 11999, suffix: "/ month" },
         highlight: true,
         badge: "Most Popular",
         features: [
@@ -404,7 +392,7 @@ const services: Service[] = [
         name: "Premium",
         tagline: "Complete performance marketing solution",
         note: "Ad budget will be paid directly by the client to the respective platform",
-        price: { type: "toggle", monthly: 8000, yearly: 7000 },
+        price: { type: "fixed", amount: 17999, suffix: "/ month" },
         highlight: false,
         badge: null,
         features: [
@@ -456,6 +444,102 @@ const services: Service[] = [
         highlight: false,
         badge: null,
         features: [],
+        excluded: [],
+        cta: "Contact Us",
+      },
+    ],
+  },
+  {
+    title: "Search Engine Optimization",
+    titleHtml: (
+      <>
+        Search Engine <em>Optimization</em>
+      </>
+    ),
+    subtitle:
+      "Rank higher, drive organic traffic, and grow your business with our proven SEO strategies.",
+    plans: [
+      {
+        num: "01",
+        name: "Basic",
+        tagline: "Best for: Small businesses & startups",
+        price: { type: "fixed", amount: 7999, suffix: "/ month" },
+        highlight: false,
+        badge: null,
+        features: [
+          "Website SEO Audit",
+          "Keyword Research — up to 10 keywords",
+          "On-Page SEO Optimization",
+          "Meta Title & Meta Description Optimization",
+          "Heading Tag Optimization (H1–H6)",
+          "URL Optimization",
+          "Image Alt Tag Optimization",
+          "Basic Technical SEO",
+          "Google Search Console Setup",
+          "Google Analytics Setup",
+          "Google Business Profile Basic Optimization",
+          "2 SEO-Optimized Blog/Articles per Month",
+          "Basic Local SEO",
+          "Monthly SEO Report",
+          "Monthly Performance Monitoring",
+        ],
+        excluded: [],
+        cta: "Get Started",
+      },
+      {
+        num: "02",
+        name: "Standard",
+        tagline: "Best for: Growing businesses & local brands",
+        price: { type: "fixed", amount: 11999, suffix: "/ month" },
+        highlight: true,
+        badge: "Most Popular",
+        features: [
+          "Keyword Research — up to 25 keywords",
+          "Competitor SEO Analysis",
+          "Advanced On-Page SEO",
+          "Technical SEO Optimization",
+          "Internal Linking Optimization",
+          "Schema Markup Implementation",
+          "Google Business Profile Optimization",
+          "Local Citation Building",
+          "Local Directory Submissions",
+          "4 SEO-Optimized Blogs/Articles per Month",
+          "High-Quality Backlink Building",
+          "Link Profile Monitoring",
+          "Broken Link & 404 Error Fixing",
+          "Website Speed & Core Web Vitals Recommendations",
+          "Monthly Keyword Ranking Tracking",
+          "Detailed Monthly SEO Report",
+        ],
+        excluded: [],
+        cta: "Start Building",
+      },
+      {
+        num: "03",
+        name: "Premium",
+        tagline: "Best for: Established businesses & competitive industries",
+        price: { type: "fixed", amount: 17999, suffix: "/ month" },
+        highlight: false,
+        badge: null,
+        features: [
+          "Advanced Keyword Research — up to 50+ keywords",
+          "In-Depth Competitor Analysis",
+          "Comprehensive Technical SEO",
+          "Advanced Local SEO Strategy",
+          "Google Business Profile Management",
+          "8 SEO-Optimized Blogs/Articles per Month",
+          "Premium Backlink Building",
+          "Digital PR & Link-Building Opportunities",
+          "Competitor Backlink Analysis",
+          "Content Gap Analysis",
+          "Advanced Schema Implementation",
+          "Conversion Rate Optimization (CRO) Recommendations",
+          "Core Web Vitals Optimization",
+          "Reputation & Brand Mention Monitoring",
+          "Monthly SEO Strategy & Consultation",
+          "Weekly Ranking Monitoring",
+          "Detailed Performance & Growth Report",
+        ],
         excluded: [],
         cta: "Contact Us",
       },
@@ -526,6 +610,26 @@ const PriceDisplay = ({
           <span className="wa-number">+91 92337 70627</span>
         </a>
       </motion.div>
+    );
+  }
+
+  if (price.type === "fixed") {
+    return (
+      <div className="card-price-split">
+        <div className="split-row">
+          <div className="card-price-row">
+            <span className="card-currency">₹</span>
+            <span className="card-amount">
+              {price.amount.toLocaleString("en-IN")}
+            </span>
+          </div>
+          {price.suffix && (
+            <div className="split-label one-time-label" style={{ textTransform: "none", marginTop: "12px", display: "inline-block", padding: "6px 10px", background: "rgba(255, 255, 255, 0.08)", borderRadius: "6px" }}>
+              {price.suffix}
+            </div>
+          )}
+        </div>
+      </div>
     );
   }
 
@@ -679,6 +783,7 @@ const PricingSection = () => {
   const isSinglePlan = svc.plans.length === 1;
   const isSplitService = svc.plans[0].price.type === "split";
   const isNegotiationService = svc.plans[0].price.type === "negotiation";
+  const isToggleService = svc.plans[0].price.type === "toggle";
 
   return (
     <>
@@ -1239,7 +1344,7 @@ const PricingSection = () => {
                     </AnimatePresence>
                   </div>
                 </motion.div>
-              ) : (
+              ) : isToggleService ? (
                 <motion.div
                   key={`toggle-${currentService}`}
                   className="billing-toggle"
@@ -1279,7 +1384,7 @@ const PricingSection = () => {
                     )}
                   </AnimatePresence>
                 </motion.div>
-              )}
+              ) : null}
             </AnimatePresence>
           </motion.div>
 
